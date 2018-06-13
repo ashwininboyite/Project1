@@ -761,7 +761,7 @@ label {
   font-weight: normal;
   color: #333333;
   background-color: #ffffff;
-  border: 1px solid #e5e5e5;
+  border: 1px solid gray;
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -826,13 +826,13 @@ textarea[readonly] {
 }
 
 .input-group-addon {
-  border-color: #e5e5e5;
-  background: #e5e5e5;
+  border-color: grey;
+  background: #ffb848;
   min-width: 39px;
 }
 
 .input-group-addon > i {
-  color: #999;
+  color: black;
 }
 
 /* form control sizing */

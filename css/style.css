@@ -1013,13 +1013,13 @@ Page breadcrumb
   margin-top: 15px;
   margin-bottom: 25px;
   border:0px !important;  
-  background-color: #eee;
+  background-color: #2C3E50;
 }
 
 .page-content .page-breadcrumb.breadcrumb > li > a, 
 .page-content .page-breadcrumb.breadcrumb > li > i, 
 .page-content .page-breadcrumb.breadcrumb > li > span {
-  color: #333;
+  color: #efe9e9;
   font-size: 14px;
   text-shadow:none;
 }
@@ -3851,6 +3851,14 @@ textarea.placeholder {
 .control-label {
   margin-top: 2px;
 }
+.control-label1 {
+  	margin-top: 2px;
+	font-size: 14px; 
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration-color: black;
+	color: black;
+}
 
 .form-control-static {
   font-size: 14px;
@@ -4277,4 +4285,11 @@ UI Loading
 .loader {
     margin-top: 20px;
     vertical-align: top;
+}
+.search-border{
+	 border-radius:5px;
+	border:1px solid #afaaaa ;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
 }
