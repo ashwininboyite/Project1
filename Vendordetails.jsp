@@ -130,17 +130,18 @@
                     </div>
                 </div>
 				
-				<form name=myname method=post action="edituser.jsp">
+				<form name=myname method=post action="update.jsp">
 				<div class="row" style="padding-left: 850px">
 					<div class="col-md-12">
 						<div class="btn-group" style="Border-radius:2px">
-							<input class="btn btn-primary " type="submit" value="Edit"> 
-							<button class="btn btn-primary " type="submit" value="View"><i class="icon-trash"></i>&nbsp;View</button> 
-            				<button class="btn btn-primary " type="submit" value="Delete"><i class="icon-trash"></i>&nbsp;Delete</button> 
-							<a href="purchase.html"><button class="btn btn-primary"><i class="icon-remove-sign"></i>&nbsp;Close</button></a>
+							<input class="btn btn-primary " type="submit" name="edit_clicked" value="Edit"> 
+							<button class="btn btn-primary " type="submit" name="view_clicked" value="View"><i class="icon-trash"></i>&nbsp;View</button> 
+            				<button class="btn btn-primary " type="submit"  name="delete_clicked"value="Delete"><i class="icon-trash"></i>&nbsp;Delete</button> 
+							<button class="btn btn-primary " type="submit"  name="close_clicked"value="Close"><i class="icon-remove-sign"></i>&nbsp;Close</button>
 					   </div>
 					   </div>
 				</div>
+				
 				<div class="row">
 							<div id="builder-basic" class="query-builder form-inline" style="padding:10px">
 								<table border="0">
