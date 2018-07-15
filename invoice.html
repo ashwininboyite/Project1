@@ -16,6 +16,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/uniform.default.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/DT_bootstrap.css" />
@@ -76,15 +77,14 @@
                         </div>
                         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                     </li>
-					<li class="sidebar-search-wrapper">&nbsp;</li>
                     <li><a href="index.html"><span class="title">Dashboard </span><i class="icon-tasks" style="padding-left: 100px"></i> </a>
                     <li class="start active">
                         <a href="sales.html">
                             <span class="title">Sales </span><i class="icon-dollar" style="padding-left: 140px"></i><span class="selected"></span>
                         </a>
                     </li>
-					<li><a href="purchase.html"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i></a></li>
-                                        <li><a href="report.html"><span class="title">Report  </span><i class="icon-file-text-alt"  style="padding-left: 130px"></i> </a></li>
+					<li><a href="#"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i></a></li>
+                                        <li><a href="ErrorsWarnings.html"><span class="title">Report  </span><i class="icon-file-text-alt"  style="padding-left: 130px"></i> </a></li>
                 </ul>
                 <!-- END SIDEBAR MENU -->
             </div>
@@ -107,10 +107,10 @@
       					</div>
                         <ul class="page-breadcrumb breadcrumb">
                             <li>
-								<span  style="color: white"><i class="icon-home"></i></span><a href="index.html">Home </a><i class="icon-angle-right"  style="color: white">
+                                <i class="icon-home"></i><a href="index.html">Home </a><i class="icon-angle-right">
                                 </i>
                             </li>
-							<li><a href="sales.html">Sales </a><i class="icon-angle-right"  style="color: white"></i></li>
+							<li><a href="sales.html">Sales </a><i class="icon-angle-right"></i></li>
 							<li><a href="invoice.html">Invoice</a></li>
                             <li class="pull-right">
 								<div>
@@ -144,136 +144,13 @@
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
-			<div class="col-md-8">	
-				<div class="row" style="padding-left: 350px; padding-bottom: 10px">
-					<div class="col-md-12">
-						<div class="btn-group">
-							<button class="btn btn-primary"><i class="icon-"></i>&nbsp;Create</button>
-						</div>
-					<div class="btn-group">
-							<button class="btn btn-primary"><i class="icon-save"></i>&nbsp;Save</button>
-					</div>
-					<div class="btn-group">
-							<button class="btn btn-primary"><i class="icon-edit-sign"></i>&nbsp;Edit</button>
-					</div>
-					<div class="btn-group">
-							<button class="btn btn-primary"><i class="icon-remove-sign"></i>&nbsp;Close</button>
-					</div>
+                
+		        <!-- END PAGE HEADER-->
+                <div class="clearfix">
+                </div>
 
-					</div>
-				</div>
-							
-						<div class="row">
-							<div style="padding-left:15px">
-						<table>
-							<tr>
-								<td style="text-align: center">
-									<label class="control-label1">
-										Invoice Number
-									</label>
-								</td>
-								<td style="text-align: center">
-									<label class="control-label1">
-										Date
-									</label>
-								</td>
-							</tr>
-								<tr>
-									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
-									</td>
-										<td style="padding-left: 90px">
-											<input type="text" id="todate" class="form-control" placeholder="MM/DD/YYYY">
-										</td>
-								</tr>
-							</table>
-				<div>	
-					<table>
-							<tr>
-								<td style="text-align: center">
-									<label class="control-label1">
-										Customer Name
-									</label>
-								</td>
-								<td style="text-align: center">
-									<label class="control-label1">
-										Terms
-									</label>
-								</td>
-								<td style="text-align: center">
-									<label class="control-label1">
-										INV Value	
-									</label>
-								</td>
-							</tr>
-								<tr>
-									<td>
-										<input type="text" id="todate" class="form-control">
-									</td>
-										<td style="padding-left: 90px">
-											<input type="text" id="todate" class="form-control">
-										</td>
-									<td>
-											<input type="text" id="todate" class="form-control">
-										</td>
-								</tr>
-							</table>
-
-				</div>
-			</div>
-		</div>		
-				<div class="row">
-							<div class="col-md-12" style="text-align:center">
-								<div id="dynamictable2" class="divshadow">
-									<label class="countries" id="lbloly2"></label>	
-									<table class="table table-striped table-bordered sortable table-hover">
-										<thead>
-											<tr class="display_dec">
-												<th align="left" valign="middle" >Bar Number</th>
-												<th align="left" valign="middle" >RM Grade</th>
-												<th align="left" valign="middle" >SEC</th>
-												<th align="left" valign="middle" >Size</th>
-												<th align="left" valign="middle" >INV Qty</th>
-											</tr>
-										</thead>
-									</table>
-								</div>
-							</div>
-				</div>
-					<div style="padding-top: 400px">	<!--search for date-->
-					<div >
-						<label class="control-label1">
-							Remark:-
-						</label>
-						<span>
-							<input type="text" id="todate" class="form-control" placeholder=" Here">
-							<div class="btn-group" style="padding-left: 0px ;padding-top: 10px">
-								<button class="btn btn-primary"><i class="icon-"></i>&nbsp;Submit</button>
-							</div>
-						</span>
-					</div>
-				</div>
-	        
-				
-	</div>
-	<div class="col-md-4" style="padding-top: 100px">
-		<div style="border-radius:5px;border:2px solid grey">	<!--search for date-->
-					<div>
-						<label class="control-label text-left">
-							Note:-
-						</label>
-						<p>
- 							TO DELETE THE ENTRY FOLLOW THE BELOW INSTRUCTIONS.<br>
-							1)Press <span style="color: red;"><b>EDIT</b></span>  button.<br>
-							2) Make INV WT / QTY zero.<br>
-							3) Press DELTE button.<br>
-						</p>
-					</div>
-				</div>  
-			</div>
-									<!-- END PAGE HEADER-->
-               <div class="clearfix">
-               </div>
+            </div>
+        </div>
 		<!-- END CONTENT -->
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
