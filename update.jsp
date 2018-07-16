@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <%@page language="java"%>
 <%@page import="java.sql.*"%>
-
+<%@page import="java.util.*"%>
 <head id="Head1">
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -35,7 +35,7 @@
 <% if(null != request.getParameter("delete_clicked"))
 {
 
-						String id[]= new String[10];
+					String id[]= new String[10];
 					String delid=null;
 					for(int i=0;i<10;i++){
 					id[i]=request.getParameter("check"+i);
@@ -45,7 +45,7 @@
 					try{
 					Connection conn = null;
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Erp","root", "Rams3098!");
+					conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erp","root", "Ashu1997");
 					ResultSet rs = null;
 					Statement st=null;
 					st=conn.createStatement();
@@ -204,7 +204,7 @@ if(null != request.getParameter("edit_clicked"))
 					int sumcount=0;
 					try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Erp", "root", "Rams3098!");
+					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erp", "root", "Ashu1997");
 					for(int a=0;a<10;a++){
 						if(id1[a]!=null)
 							ide1=id1[a];
@@ -441,8 +441,8 @@ catch(Exception e)
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
-<form method="post" action="Vendordetails.jsp">
-								<%String id3[]= new String[10];
+			<form method="post" action="Vendordetails.jsp">
+					<%String id3[]= new String[10];
 					String delid3=null;
 					for(int i=0;i<10;i++){
 					id3[i]=request.getParameter("check"+i);
@@ -453,7 +453,7 @@ catch(Exception e)
 					int sumcount=0;
 					try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Erp", "root", "Rams3098!");
+					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erp", "root", "Ashu1997");
 					for(int a=0;a<10;a++){
 						if(id3[a]!=null)
 							ide3=id3[a];
@@ -577,6 +577,7 @@ catch(Exception e){}
 						</div>		
 			
 <% }
+  
   if(null != request.getParameter("close_clicked"))
   {
 %>
@@ -704,6 +705,194 @@ catch(Exception e){}
 <%
 }
 %>
+ <% if(null != request.getParameter("Search"))
+{
+%>	
+<div class="header navbar navbar-fixed-top">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="header-inner">
+            <!-- BEGIN LOGO -->
+            <a class="navbar-brand" href="index.html">
+                <span style="color:white"><b>ERP</b></span>
+            </a>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <img src="images/menu-toggler.png" alt="" />
+            </a>
+			
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown user">
+                    <a href="javascript:;" id="trigger_fullscreen" class="dropdown-toggle">
+                        <span class="username">
+                            <i class="icon-move"></i>
+                            Full Screen
+                        </span>
+                    </a>
+
+                </li>
+            </ul>
+			
+            <!-- END TOP NAVIGATION MENU -->
+            <!-- END TOP NAVIGATION BAR -->
+        </div>
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-fixed">
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+                    <li class="sidebar-toggler-wrapper">
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <div class="sidebar-toggler hidden-phone">
+                        </div>
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    </li>
+					<li class="sidebar-search-wrapper">&nbsp;</li>
+                    <li><a href="index.html"><span class="title">Dashboard </span><i class="icon-tasks" style="padding-left: 100px"></i> </a>
+                    <li>
+                        <a href="sales.html">
+                            <span class="title">Sales </span><i class="icon-dollar" style="padding-left: 140px"></i>
+                        </a>
+                    </li>
+					<li class="start active"><a href="purchase.html"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i>
+						<span class="selected"></span>
+						</a>
+					</li>
+                    <li><a href="report.html"><span class="title">Report  </span><i class="icon-file-text-alt"  style="padding-left: 130px"></i> </a></li>
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+		
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <!-- BEGIN PAGE HEADER-->
+				
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+						
+                        <h6 class="page-title">
+                             Vendor Details
+                        </h6>
+						<div>	
+      					</div>
+                        <ul class="page-breadcrumb breadcrumb">
+                            <li>
+                                <i class="icon-home" style="color: white"></i><a href="index.html">Home </a><i class="icon-angle-right" style="color: white">
+                                </i>
+                            </li>
+							<li><a href="purchase.html">Purchase </a><i class="icon-angle-right" style="color: white"></i></li>
+							
+                            <li class="pull-right">
+								<div>
+                                <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top"
+                                     data-original-title="Change dashboard date range">
+                                    <i class="icon-calendar"></i><span></span><i class="icon-angle-down"></i>
+									
+                                </div>
+								</div>
+                            </li>
+							  <li class="pull-right">
+                                <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top"
+                                     data-original-title="Change dashboard date range">
+                                    <i class="icon-calendar"></i><span></span><i class="icon-angle-down"></i>
+                                </div>
+                             </li>
+							<li style="align-content: space-around "> 
+							</li>
+                        </ul>
+						
+                        <!-- END PAGE TITLE & BREADCRUMB-->
+                    </div>
+                </div>
+			<form method="post" action="Vendordetails.jsp">
+				<div class="row" style="padding-left: 850px">
+					<div class="col-md-12">
+						<div class="btn-group" style="Border-radius:2px">
+							<a href="Vendordetails.jsp"><button class="btn btn-primary"><i class="icon-remove-sign"></i>&nbsp;Close</button></a>
+							</div>
+							</div>
+							</div>
+					<table class="table table-striped table-bordered sortable table-hover" style="padding-top: 20px">
+										<thead>
+										
+											<tr class="display_dec" bgcolor="green">
+											
+												<th align="left" valign="middle" class="display_dec" bgcolor="green">Vendor Code</th>
+												<th align="left" valign="middle" class="display_dec" bgcolor="green" >Vendor Name </th>
+											</tr>
+											
+										</thead>
+					<%
+					String search_box_value=request.getParameter("NAME_SEARCH_BOX");
+					//out.print(search_box_value);
+					List<String> element=new ArrayList<>();
+					int i=0,j=0;
+					int sumcount=0;
+					try {
+					Class.forName("com.mysql.jdbc.Driver").newInstance();
+					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/erp", "root", "Ashu1997");
+					String query = "select * from vendors where Vendorcode like '%"+search_box_value+"%'";
+					Statement st = conn.createStatement();
+					ResultSet rs = st.executeQuery(query);
+					String vendor_name=new String();
+					
+					while(rs.next()){//Serached REcord
+						%>
+						
+						<td style="background-color: #cbd854"><%=rs.getString(1) %></td>
+						<td style="background-color: #cbd854"><%=rs.getString(2) %></td>
+						</tr>
+						<% 
+						element.add(rs.getString(2));
+						i++;
+						}
+						/*for(String Element1:element)
+						{
+							out.print(Element1);
+						}*/
+						
+						String query1 = "select * from vendors group by(Name)";
+						rs = st.executeQuery(query1);
+						while(rs.next()){
+							vendor_name=rs.getString(2);
+							if(!element.contains(vendor_name))
+							{//Records other than Search
+							%>
+								
+								<td style="background-color: #ded1d1"><%=rs.getString(1) %></td>
+								<td style="background-color: #ded1d1"><%=rs.getString(2) %></td>
+								</tr>
+							<% 
+								element.add(rs.getString(2));
+								j++;
+							}
+						}
+						} catch (Exception e) {
+						e.printStackTrace();
+						}
+}
+					%>
+						</table>
+						</form>
+							
+						</div>		
+			
+
+  
+
 <!-- END PAGE HEADER-->
                <div class="clearfix">
                </div>
