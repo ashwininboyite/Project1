@@ -2,10 +2,11 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% response.setContentType("text/html");%>
+
 <%
 
 String str=request.getParameter("queryString");
-System.out.println("HIi");
+
 try {
 String connectionURL = "jdbc:mysql://127.0.0.1:3306/Erp";
 Connection con;
@@ -18,9 +19,11 @@ Statement stm = con.createStatement();
 stm.executeQuery(sql);
 ResultSet rs= stm.getResultSet();
 while (rs.next ()){
-		
-	out.println("<li onclick='fill("+rs.getString("Name")+");'>"
-			+rs.getString("Name")+"</i>");
+		String s=rs.getString("Name");%>
+		<li onclick='fill("<%=s%>");'><%=rs.getString("Name") %></li>
+		<% 
+	
+	
 }}catch(Exception e){
 out.println("Exception is ;"+e);
 }

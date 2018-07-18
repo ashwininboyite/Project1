@@ -5,6 +5,7 @@
 <html lang="en" class="no-js">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
+<%! public static String id; %>
 <head id="Head1">
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,10 +41,14 @@ $('#autoSuggestionsList').html(data);
 }
 }
 function fill(thisValue) {
+	
+
 $('#inputString').val(thisValue);
-setTimeout("$('#suggestions').hide();", 200);
+setTimeout("$('#suggestions').hide();", 2000);
+
 }
 </script>
+
 <style type="text/css">
 body {
 font-family: Helvetica;
@@ -53,10 +58,10 @@ color: #000;
 
 .suggestionsBox {
 position: relative;
-left: 260px;
+
 margin: 0px 0px 0px 0px;
-width: 200px;
-background-color: #7845DD;
+width: 182px;
+background-color: gray;
 -moz-border-radius: 7px;
 -webkit-border-radius: 7px;
 border: 2px solid #000;
@@ -72,7 +77,7 @@ padding: 3px;
 cursor: pointer;
 }
 .suggestionList li:hover {
-background-color: #DD45CD;
+background-color: green;
 }
 </style>
 </head>
