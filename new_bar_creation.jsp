@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -29,24 +30,95 @@
     <script type="text/javascript" src="jquery-1.4.2.js"></script>
 <script type="text/javascript">
 function lookup(inputString) {
-if(inputString.length == 0) {
-$('#suggestions').hide();
-} else {
-$.post("SearchVendor.jsp", {queryString: ""+inputString+""}, function(data){
-if(data.length >0) {
-$('#suggestions').show();
-$('#autoSuggestionsList').html(data);
+		if(inputString.length == 0) {
+		$('#suggestions').hide();
+		} else {
+		$.post("SearchVendor.jsp", {queryString: ""+inputString+""}, function(data){
+		if(data.length >0) {
+		$('#suggestions').show();
+		$('#autoSuggestionsList').html(data);
+		}
+		});
+		}
 }
-});
-}
+function lookup1(inputString) {
+	if(inputString.length == 0) {
+	$('#suggestions').hide();
+	} else {
+	$.post("SearchGrade.jsp", {queryString: ""+inputString+""}, function(data){
+	if(data.length >0) {
+	$('#suggestions').show();
+	$('#autoSuggestionsList').html(data);
+	}
+	});
+	}
 }
 function fill(thisValue) {
 	
-
-$('#inputString').val(thisValue);
-setTimeout("$('#suggestions').hide();", 2000);
+		$('#inputString').val(thisValue);
+		setTimeout("$('#suggestions').hide();", 2000);
 
 }
+function fill1(thisValue) {
+	
+	$('#inputString1').val(thisValue);
+	setTimeout("$('#suggestions').hide();", 2000);
+	if(thisValue!=null)
+		{lookup2(thisValue);}
+	
+
+}
+function lookup2(inputString) {
+	
+	value=inputString;
+	
+	$.ajax({
+		async: false,
+		url:"SearchGradeValues.jsp",
+		type:"POST",
+		dataType:"json",
+		data:{ 'name':value},
+		success:function(data)
+		{
+			
+			for (var key in data) {
+						if (data.hasOwnProperty(key)) {
+					  	$('#rmin_c').text(data[key].MinC);
+					  	$('#rmin_Mn').text(data[key].MinMn);
+					  	$('#rmin_si').text(data[key].MinSi);
+					  	$('#rmin_s').text(data[key].MinS);
+					  	$('#rmin_p').text(data[key].MinP);
+					  	$('#rmin_cr').text(data[key].MinCr);
+					  	$('#rmin_ni').text(data[key].MinNi);
+					  	$('#rmin_mo').text(data[key].MinMo);
+					  	$('#rmin_cu').text(data[key].MinCu);
+					  	$('#rmin_v').text(data[key].MinV);
+					  	$('#rmin_al').text(data[key].MinAl);
+					  	$('#rmin_w').text(data[key].MinW);
+					  	$('#rmin_n').text(data[key].MinN);
+					  	
+					  	$('#rmax_c').text(data[key].MaxC);
+					  	$('#rmax_Mn').text(data[key].MaxMn);
+					  	$('#rmax_si').text(data[key].MaxSi);
+					  	$('#rmax_s').text(data[key].MaxS);
+					  	$('#rmax_p').text(data[key].MaxP);
+					  	$('#rmax_cr').text(data[key].MaxCr);
+					  	$('#rmax_ni').text(data[key].MaxNi);
+					  	$('#rmax_mo').text(data[key].MaxMo);
+					  	$('#rmax_cu').text(data[key].MaxCu);
+					  	$('#rmax_v').text(data[key].MaxV);
+					  	$('#rmax_al').text(data[key].MaxAl);
+					  	$('#rmax_w').text(data[key].MaxW);
+					  	$('#rmax_n').text(data[key].MaxinN);
+}
+}
+		}
+		,error:function(error) {
+			alert('not found!!')
+		}
+	})
+}
+
 </script>
 
 <style type="text/css">
@@ -197,20 +269,13 @@ background-color: green;
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
-             <form action="new_bar_creation.jsp" method="post">
+             <form action="Detailsinsert.jsp" method="post">
 				<div class="row" style="padding-left: 700px; padding-bottom: 10px">
-						<div class="btn-group">
-							<a href="newGrade.html"><button class="btn btn-primary"><i class="icon-plus"></i>&nbsp;Create</button></a>
-						</div>
-						<div class="btn-group">
-							<button class="btn btn-primary"><i class="icon-pencil"></i>&nbsp;edit</button>
-						</div>
-						<div class="btn-group">
-							<button class="btn btn-primary"><i class="icon-save"></i>&nbsp;Save</button>
-						</div>
-						<div class="btn-group">
-							<a href="rawmaterial.html"><button class="btn btn-primary"><i class="icon-remove-sign"></i>&nbsp;Close</button></a>
-						</div>
+						<div class="btn-group" style="Border-radius:2px">
+						<button class="btn btn-primary " type="submit"  name="create_clicked"value="Delete"><i class="icon-plus"></i>&nbsp;Create</button> 
+							
+					<button class="btn btn-primary " type="submit"  name="close_clicked"value="Close"><i class="icon-remove-sign"></i>&nbsp;Close</button>
+					   </div>
 				</div>
 				<div class="search-container">
 										
@@ -219,6 +284,7 @@ background-color: green;
 							<div style="padding-left:15px">
 						<table>
 							<tr>
+							
 								<td style="text-align: center">
 									<label class="control-label1">
 										VENDOR
@@ -254,7 +320,7 @@ background-color: green;
 								<tr>
 									<td>
 										<input type="text"  value="" id="inputString" class="form-control" placeholder=""
-								onkeyup="lookup(this.value);" onblur="fill();" />
+								onkeyup="lookup(this.value);" onblur="fill();" name="vendor"/>
 								
 								<div class="suggestionsBox" id="suggestions" style="display: none;">
 								<div class="suggestionList" id="autoSuggestionsList">
@@ -262,19 +328,19 @@ background-color: green;
 								</div>
 									</td>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="text" id="todate" class="form-control" name="invoice" placeholder="">
 									</td>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="date" id="todate" class="form-control" name="date" placeholder="">
 									</td>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="text" id="todate" class="form-control" name="weight" placeholder="">
 									</td>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="text" id="todate" class="form-control" name="rate" placeholder="">
 									</td>
 									<td style="padding-left: 90px">
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="text" id="todate" class="form-control" name="hsncode" placeholder="">
 									</td>
 								</tr>
 							</table>
@@ -317,9 +383,13 @@ background-color: green;
 								</tr>
 								<tr>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="" title="ON TYPING GRADE,
-SHOULD PICK FROM
-RM MASTER">
+										<input type="text"  value="" id="inputString1" class="form-control" placeholder=""
+								onkeyup="lookup1(this.value);" onblur="fill1();" name="grade"/>
+								
+								<div class="suggestionsBox" id="suggestions" style="display: none;">
+								<div class="suggestionList" id="autoSuggestionsList">
+								</div>
+								</div>
 									</td>
 									<td>
 									<select name="sec" style="text-align: center;width:190px;height:35px">	
@@ -328,14 +398,13 @@ RM MASTER">
 									</select>
 									</td>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="text" id="todate" class="form-control" name="size" placeholder="">
 									</td>
 									<td>
-										<input type="text" id="todate" class="form-control" placeholder="">
+										<input type="text" id="todate" class="form-control" name="htno" placeholder="">
 									</td>
 									<td>
-										<input type="file" id="todate" class="form-control" placeholder="" title="SCAN DOCUMENT
-ATTACMENT LINK" name="file_access">
+										<input type="file" id="todate" class="form-control" placeholder="" title="SCAN DOCUMENT ATTACHMENT LINK" name="file_access">
 									</td>
 								</tr>
 							</table>
@@ -353,49 +422,49 @@ ATTACMENT LINK" name="file_access">
 														</td>
                                                     </tr>
 													<tr border="1" style="border: 2px solid #2C3E50">
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">%</label>
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">C</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Mn</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Si</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">S</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">P</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Cr</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Ni</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Mo</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Cu</label>	
 														</td >
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">V</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">Al</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">W</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">N</label>	
 														</td>
-														<td class="table-row">
+														<td class="table-row" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label class="control-label1">---</label>	
 														</td>
 													</tr>
@@ -403,138 +472,138 @@ ATTACMENT LINK" name="file_access">
                                                         <td>
 															<label><b>MIN</b></label>
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_c" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_Mn" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_si" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_s" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_p" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_cr" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_ni" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_mo" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_cu" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_v" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_al" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_w" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin_n" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmin__" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
 													</tr>
 													<tr>
 														<td>
 															<label><b>MAX</b></label>
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_c" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_Mn" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_si" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_s" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_p" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_cr" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_ni" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_mo" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_cu" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_v" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_al" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_w" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+														<td id="rmax_n" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
 														</td>
-														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
-														</td>
+														<td id="rmax__" style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
+															 
+														</td>	
 													</tr>
-									<tr>
+												<tr>
 														<td>
 															<label><b>LADLE </b></label>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladC"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladMn"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladSi"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladS"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladP"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladCr"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladNi"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladMo"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladCu"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladV"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladAl"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladW"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="ladN"/>
 														</td>
 														<td>
 															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
@@ -545,43 +614,43 @@ ATTACMENT LINK" name="file_access">
 															<label><b>ACTUAL </b></label>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actC"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actMn"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actSi"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actS"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actP"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actCr"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actNi"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actMo"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actCu"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actV"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actAl"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actW"/>
 														</td>
 														<td>
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="actN"/>
 														</td>
 														<td>
 															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code"/>
@@ -593,7 +662,7 @@ ATTACMENT LINK" name="file_access">
 														</td>
 														
 														<td colspan="14">
-															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="vendor_code" placeholder="Enter the remark"/>
+															 <input type="text" class="form-control" maxlength="200" id="vendorcode" name="remarks" placeholder="Enter the remark"/>
 														</td>
 													</tr>
 								</table>
