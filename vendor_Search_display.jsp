@@ -15,7 +15,7 @@ String connectionURL = "jdbc:mysql://127.0.0.1:3306/erp";
 Connection con;
 Class.forName("com.mysql.jdbc.Driver");
 // Get a Connection to the database
-con = DriverManager.getConnection(connectionURL, "root", "Ashu1997"); 
+con = DriverManager.getConnection(connectionURL, "root", "   "); 
 //Add the data into the database
 String sql = "select * from vendors where Name='"+str+"'";
 Statement stm = con.createStatement();
