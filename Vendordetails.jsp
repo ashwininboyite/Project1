@@ -265,7 +265,7 @@ background-color: gray;
 						String connectionUrl = "jdbc:mysql://127.0.0.1:3306/";
 						String dbName = "erp";
 						String userId = "root";
-						String password = "Ashu1997";
+						String password = "   ";
 						
 						try {
 						Class.forName(driverName);
