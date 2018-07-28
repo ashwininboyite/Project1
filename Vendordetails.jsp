@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -26,6 +26,91 @@
     <link href="css/style-responsive.css" rel="stylesheet" type="text/css" />
     <link href="css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="css/default.css" rel="stylesheet" type="text/css" id="style_color" />
+     <script type="text/javascript" src="WebContent/js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+function lookup(inputString) {
+		if(inputString.length == 0) {
+		$('#suggestions').hide();
+		} else {
+		$.post("vendor_Search.jsp", {queryString: ""+inputString+""}, function(data){
+		if(data.length >0) {
+		$('#suggestions').show();
+		$('#autoSuggestionsList').html(data);
+		}
+		});
+		}
+}
+function fill(thisValue) {
+	$('#inputString').val(thisValue);
+	setTimeout("$('#suggestions').hide();",200);
+	if(thisValue!=null)
+	{Search_name(thisValue);}
+}
+
+function Search_name(inputString) {
+	$('#inputString').hide();
+	$('#Display_id1').hide();
+	$('#Display_id2').show();
+	
+	value=inputString;
+	
+	$.ajax({
+		async: false,
+		url:"vendor_Search_display.jsp",
+		type:"POST",
+		dataType:"json",
+		data:{'name':value},
+		success:function(data)
+		{
+			for (var key in data) {
+				if (data.hasOwnProperty(key)) {
+				document.getElementById("mytext").value =data[key].Vendorcode ;	
+			  	$('#vendor_code').text(data[key].Vendorcode);
+			  	$('#vendor_name').text(data[key].Name);
+				}
+			}
+		}
+		,error:function(error) {
+			alert('not found!!')
+		}
+	})
+}
+function display_vendor(){
+	$('#Display_id1').show();
+	$('#Display_id2').hide();
+	$('#inputString').show();
+	document.getElementById("inputString").value='';
+}
+</script>
+<style type="text/css">
+body {
+font-family: Helvetica;
+font-size: 13px;
+color: #000;
+}
+.suggestionsBox {
+position: relative;
+margin: 0px 0px 0px 0px;
+width: 182px;
+background-color: gray;
+-moz-border-radius: 7px;
+-webkit-border-radius: 7px;
+border: 2px solid #000;
+color: #fff;
+}
+.suggestionList {
+margin: 0px;
+padding: 0px;
+}
+.suggestionList li {
+margin: 0px 0px 3px 0px;
+padding: 3px;
+cursor: pointer;
+}
+.suggestionList li:hover {
+background-color: gray;
+}
+</style>
 </head>
 <body class="page-header-fixed">
     <div class="header navbar navbar-fixed-top">
@@ -129,37 +214,36 @@
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
-				
-				<form name=myname method=post action="update.jsp">
-				<div class="row" style="padding-left: 600px">
+					<form name=myname method=post action="update.jsp">
+				<div class="row" style="padding-left: 0px; padding-bottom: 15px">
 					<div class="col-md-12">
 						<div class="btn-group" style="Border-radius:2px">
-							<input class="btn btn-primary " type="submit" name="edit_clicked" value="Edit"> 
-							<button class="btn btn-primary " type="submit" name="view_clicked" value="View"><i class="icon-"></i>&nbsp;View</button> 
+							 
+							<button class="btn btn-primary " type="submit" name="edit_clicked" value="View"><i class="icon-pencil"></i>&nbsp;Edit</button>
+							<button class="btn btn-primary " type="submit" name="view_clicked" value="View"><i class="icon-move"></i>&nbsp;View</button> 
             				<button class="btn btn-primary " type="submit"  name="delete_clicked"value="Delete"><i class="icon-trash"></i>&nbsp;Delete</button> 
 							<button class="btn btn-primary " type="submit"  name="close_clicked"value="Close"><i class="icon-remove-sign"></i>&nbsp;Close</button>
 					   </div>
 					   </div>
 				</div>
-				
-				<div class="row">
+				<div class="row" >
 							<div id="builder-basic" class="query-builder form-inline" style="padding:10px">
 								<table border="0">
-													<tr  style="padding: 100px">
-                                                        <td style="padding: 10px">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" maxlength="200" id="NAMESEARCHBOX" name="NAME_SEARCH_BOX" placeholder="Enter code" />
-																<!-- <span class="input-group-addon"><i class="icon-search"></i></span>-->
-                                                            </div>
-                                                        </td>
-                                                        <td style="padding-right: ">
-                                                        <input type="submit" value="Search" name="Search" class="btn btn-primary">
-                                                        </td>
-                                                    </tr>
-								</table>
+									<tr  style="padding: 100px">
+                                       <td>
+										<input type="text"  value="" id="inputString" class="form-control" placeholder="Search Vendor Name"
+										onkeyup="lookup(this.value);" onblur="fill();" name="vendor"/>
+								
+										<div class="suggestionsBox" id="suggestions" style="display: none;">
+										<div class="suggestionList" id="autoSuggestionsList">
+										</div>
+										</div>
+									</td>
+                                </table>
 					</div>
-					
 				</div>
+				
+				<div id="Display_id1">
 				<%
 				
 						String id = request.getParameter("userId");
@@ -167,7 +251,7 @@
 						String connectionUrl = "jdbc:mysql://127.0.0.1:3306/";
 						String dbName = "erp";
 						String userId = "root";
-						String password = "Ashu1997";
+						String password = "   ";
 						
 						try {
 						Class.forName(driverName);
@@ -182,7 +266,6 @@
 						
 						<table class="table table-striped table-bordered sortable table-hover">
 										<thead>
-										
 											<tr class="display_dec" bgcolor="green">
 											<th align="left" valign="middle" ></th>
 												<th align="left" valign="middle" >Vendor Code</th>
@@ -190,10 +273,6 @@
 											</tr>
 											
 										</thead>
-						
-						
-						
-										
 						<%
 						try{ 
 						connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
@@ -217,6 +296,56 @@
 						}
 						%>
 						</table>
+						</div>
+						<div id="Display_id2" hidden >
+						<h5 class="page-title" style="font-size: 30px">
+                            Search Result
+                        </h5>
+						
+							<table class="table table-striped table-bordered sortable table-hover">
+								<tr class="display_dec">
+									<td style="height: 40px">
+										<a><i class="icon-remove-sign" style="color: black" onclick="display_vendor();"> back</i></a>
+									</td>
+								</tr>	
+							</div>
+							</table>
+						<table class="table table-striped table-bordered sortable table-hover">
+						<thead>
+										
+											<tr class="display_dec" bgcolor="green">
+												<th align="left" valign="middle" ></th>
+												<th align="left" valign="middle" >Vendor Code</th>
+												<th align="left" valign="middle" >Vendor Name </th>
+											</tr>
+										</thead>
+							<tr >
+							<% int j=0 ;%>
+							<tr><td><input type="checkbox" name="check<%=j%>" value="" id="mytext"> </td>
+							<td id="vendor_code" ></td>
+							<td id="vendor_name" ></td>						
+							</tr>
+						</table>							
+						</div>
+						<div id="Display_id3" hidden >
+							<h5 class="page-title" style="font-size: 30px">
+                            	Search Result
+                       		</h5>
+							<table class="table table-striped table-bordered sortable table-hover">
+								<tr class="display_dec">
+									<td style="height: 40px">
+										<a><i class="icon-remove-sign" style="color: black" onclick="display_vendor();"> back</i></a>
+									</td>
+									<td style="height: 40px">
+										<h4 class="page-title" style="font-size: 30px">
+                            				Search Result Not Found
+                       					</h4>
+									</td>
+								</tr>	
+							</div>
+							</table>
+							
+						</div>
 						</form>
 				
 	</div>
