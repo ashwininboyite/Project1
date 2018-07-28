@@ -26,16 +26,29 @@
     <link href="css/style-responsive.css" rel="stylesheet" type="text/css" />
     <link href="css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="css/default.css" rel="stylesheet" type="text/css" id="style_color" />
-     <script type="text/javascript" src="WebContent/js/jquery-1.8.2.min.js"></script>
+     <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript">
 function lookup(inputString) {
 		if(inputString.length == 0) {
 		$('#suggestions').hide();
 		} else {
 		$.post("vendor_Search.jsp", {queryString: ""+inputString+""}, function(data){
-		if(data.length >0) {
+		//	var letters = /^[A-Za-z0-9<]+$/;
+			var result = data.trim();
+			var patt = new RegExp("<");
+			var res = patt.test(result);
+			debugger
+		if(res) {
 		$('#suggestions').show();
 		$('#autoSuggestionsList').html(data);
+		}
+		else{
+			//alert("hi");
+			$('#suggestions').hide();
+			//$('#inputString').hide();
+			$('#Display_id1').hide();
+			$('#Display_id2').hide();
+			$('#Display_id3').show();
 		}
 		});
 		}
@@ -48,10 +61,10 @@ function fill(thisValue) {
 }
 
 function Search_name(inputString) {
-	$('#inputString').hide();
+	//$('#inputString').hide();
 	$('#Display_id1').hide();
 	$('#Display_id2').show();
-	
+	$('#Display_id3').hide();
 	value=inputString;
 	
 	$.ajax({
@@ -78,6 +91,7 @@ function Search_name(inputString) {
 function display_vendor(){
 	$('#Display_id1').show();
 	$('#Display_id2').hide();
+	$('#Display_id3').hide();
 	$('#inputString').show();
 	document.getElementById("inputString").value='';
 }
@@ -251,7 +265,7 @@ background-color: gray;
 						String connectionUrl = "jdbc:mysql://127.0.0.1:3306/";
 						String dbName = "erp";
 						String userId = "root";
-						String password = "   ";
+						String password = "Ashu1997";
 						
 						try {
 						Class.forName(driverName);
@@ -297,6 +311,8 @@ background-color: gray;
 						%>
 						</table>
 						</div>
+						
+						<!-- Table will display for particular match -->
 						<div id="Display_id2" hidden >
 						<h5 class="page-title" style="font-size: 30px">
                             Search Result
@@ -308,7 +324,6 @@ background-color: gray;
 										<a><i class="icon-remove-sign" style="color: black" onclick="display_vendor();"> back</i></a>
 									</td>
 								</tr>	
-							</div>
 							</table>
 						<table class="table table-striped table-bordered sortable table-hover">
 						<thead>
@@ -327,6 +342,8 @@ background-color: gray;
 							</tr>
 						</table>							
 						</div>
+						<br/>
+						<!--  will display for when  particular match does not exist -->
 						<div id="Display_id3" hidden >
 							<h5 class="page-title" style="font-size: 30px">
                             	Search Result
@@ -337,12 +354,11 @@ background-color: gray;
 										<a><i class="icon-remove-sign" style="color: black" onclick="display_vendor();"> back</i></a>
 									</td>
 									<td style="height: 40px">
-										<h4 class="page-title" style="font-size: 30px">
+										<h4 class="page-title" >
                             				Search Result Not Found
                        					</h4>
 									</td>
-								</tr>	
-							</div>
+								</tr>
 							</table>
 							
 						</div>
