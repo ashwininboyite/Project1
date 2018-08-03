@@ -74,13 +74,27 @@ function Search_name(inputString) {
 		data:{'name':value},
 		success:function(data)
 		{
-			for (var key in data) {
-				if (data.hasOwnProperty(key)) {
-				document.getElementById("mytext").value =data[key].Vendorcode ;	
-			  	$('#vendor_code').text(data[key].Vendorcode);
-			  	$('#vendor_name').text(data[key].Name);
-				}
-			}
+			//debugger
+			var count=data.length;
+			 $("#dynamictable1").show();
+	         $("#dynamictable1") .innerHTML='';
+	         $("#sample_2").remove()
+	         $("#dynamictable1").append($("<table width=100% id='sample_2' class='table table-striped table-bordered sortable tablehover'>"+ 
+	                                      "<thead><tr><th align='left' valign='middle' style='font-size:12px;'></th><th align='left' valign='middle' style='font-size:12px;'>Vendor Code</th>"+
+	                                      "<th align='left' valign='middle' style='font-size:12px;'>Vendor Name</th>" + 
+	                                      "</tr></thead><tbody>"));
+	         if(count>0)
+             {
+                     for(var i=0;i<count;i++)
+                         {
+                      var table="<tr><td><input type='checkbox' name='check"+i+"'"+ "value='"+data[i].Vendorcode+"'>"+
+                      			"<td align='left' valign='middle'>" +data[i].Vendorcode+
+                                "</td><td align='left' valign='middle'>"+data[i].Name+"</td></tr>";
+                               	$("#sample_2").append(table); 
+                         }
+                     $("#dynamictable1").append("</tbody></table>");
+             }
+			
 		}
 		,error:function(error) {
 			alert('not found!!')
@@ -181,7 +195,7 @@ background-color: gray;
                             <span class="title">Sales </span><i class="icon-dollar" style="padding-left: 140px"></i>
                         </a>
                     </li>
-					<li class="start active"><a href="purchase.html"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i>
+					<li class="start active"><a href="Vendordetails.jsp"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i>
 						<span class="selected"></span>
 						</a>
 					</li>
@@ -192,8 +206,7 @@ background-color: gray;
         </div>
         <!-- END SIDEBAR -->
         <!-- BEGIN CONTENT -->
-		
-        <div class="page-content-wrapper">
+      <div class="page-content-wrapper">
             <div class="page-content">
                 <!-- BEGIN PAGE HEADER-->
 				
@@ -284,13 +297,12 @@ background-color: gray;
 												<th align="left" valign="middle" >Vendor Code</th>
 												<th align="left" valign="middle" >Vendor Name </th>
 											</tr>
-											
 										</thead>
 						<%
 						try{ 
 						connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 						statement=connection.createStatement();
-						String sql ="SELECT * FROM vendors Group by(Name)";
+						String sql ="SELECT * FROM vendors";
 						int i=0;
 						resultSet = statement.executeQuery(sql);
 						while(resultSet.next()){
@@ -324,22 +336,7 @@ background-color: gray;
 									</td>
 								</tr>	
 							</table>
-						<table class="table table-striped table-bordered sortable table-hover">
-						<thead>
-										
-											<tr class="display_dec" bgcolor="green">
-												<th align="left" valign="middle" ></th>
-												<th align="left" valign="middle" >Vendor Code</th>
-												<th align="left" valign="middle" >Vendor Name </th>
-											</tr>
-										</thead>
-							<tr >
-							<% int j=0 ;%>
-							<tr><td style="background-color:#cec9ba"><input type="checkbox" name="check<%=j%>" value="" id="mytext" > </td>
-							<td id="vendor_code" style="background-color:#cec9ba"></td>
-							<td id="vendor_name" style="background-color:#cec9ba" ></td>						
-							</tr>
-						</table>							
+						<div id="dynamictable1"></div>
 						</div>
 						<br/>
 						<!--  will display for when  particular match does not exist -->
