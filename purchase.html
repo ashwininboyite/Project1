@@ -25,6 +25,34 @@
     <link href="css/style-responsive.css" rel="stylesheet" type="text/css" />
     <link href="css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="css/default.css" rel="stylesheet" type="text/css" id="style_color" />
+<style>
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+    transition: 0.4s;
+    font-weight: 700;
+    
+}
+
+.active, .accordion:hover {
+    background-color: #ffb848; 
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+</style>
+
 </head>
 
 <body class="page-header-fixed">
@@ -83,10 +111,12 @@
                             <span class="title">Sales </span><i class="icon-dollar" style="padding-left: 140px"></i>
                         </a>
                     </li>
-					<li class="start active"><a href="purchase.html"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i>
+                    
+					<li class="start active"><a href="purchase.html"> <span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 90px"> </i>
 						<span class="selected"></span>
 						</a>
 					</li>
+					
                     <li><a href="report.html"><span class="title">Report  </span><i class="icon-file-text-alt"  style="padding-left: 130px"></i> </a></li>
                 </ul>
                 <!-- END SIDEBAR MENU -->
@@ -113,23 +143,8 @@
 								<span  style="color: white"><i class="icon-home" style="color: white"></i></span><a href="index.html">Home </a><i class="icon-angle-right"  style="color: white">
                                 </i>
                             </li>
-							<li><a href="purchase.html">Purchase </a></li>
-                              <li class="pull-right">
-                                <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top"
-                                     data-original-title="Change dashboard date range">
-                                    <i class="icon-calendar"></i><span></span><i class="icon-angle-down"></i>
-                                </div>
-                               <!--  <div class="search-container">
-                                    <form action="/action_page.php">
-                                    
-										<form action="/action_page.php">
-	      									<input type="text" placeholder="  Search..." name="search">
-											<button type="submit"><i class="icon-search"></i></button>
-	    								</form>
-                                   
-                                </form>
-                                 </div>-->
-                            </li>
+							<li><a href="Vendordetails.jsp">Purchase </a></li>
+                              
 							<li style="align-content: space-around "> 
 							</li>
                         </ul>
@@ -138,17 +153,28 @@
                     </div>
                 </div>
 				<div>
-				<ul class="page-breadcrumb breadcrumb"  style="background-color: #ffb848" width="60" height="60">
-					<a href="vendor.html" ><h4 style="font-size: 20px" ><b>Vendor</b></h4></a>
+			<!-- 	<ul class="page-breadcrumb breadcrumb"  style="background-color: #ffb848" width="60" height="40">
+					<a href="Vendordetails.jsp" ><h4 style="font-size: 20px" ><b>Vendor</b></h4></a>
 					</ul>
 				
-				<ul class="page-breadcrumb breadcrumb"  style="background-color: #ffb848" width="60" height="60">
-					<a href="rawmaterial.html"><h4 style="font-size: 20px"><b>Raw Material</b></h4></a>
+				<ul class="page-breadcrumb breadcrumb"  style="background-color: #ffb848" width="60" height="40">
+					<h4 style="font-size: 20px"><b>Raw Material</b></h4>
+				</ul>-->
+				<button class="page-breadcrumb breadcrumb" style="background-color: #eee" padding-right="100" width="100" height="40"><a href="Vendordetails.jsp" ><h4 style="font-size: 20px" ><b>Vendor</b></h4></a></button>
+				</br>
+				<button class="accordion"><i class="icon-angle-down"></i><b>  Raw Material</b></button>
+					<div class="panel">
+  						<ul class="page-breadcrumb breadcrumb"  style="background-color: #ffb848" width="60" height="40">
+					<a href="rm_master.jsp" ><h4 style="font-size: 20px" ><b>RM Master</b></h4></a>
+					</ul>
+					<ul class="page-breadcrumb breadcrumb"  style="background-color: #ffb848" width="60" height="40">
+					<a href="new_bar_creation.jsp" ><h4 style="font-size: 20px" ><b>Raw Material Details</b></h4></a>
 					</ul>
 				
+					</div>
 				        <!-- END PAGE HEADER-->
-                
 				</div>
+				
 	<!-- END CONTENT -->
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
@@ -194,6 +220,23 @@
             App.init();
             TableManaged.init();
         });
+        
+        
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+
     </script>
 		</div>
 	</div>
