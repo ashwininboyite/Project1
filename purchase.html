@@ -25,6 +25,129 @@
     <link href="css/style-responsive.css" rel="stylesheet" type="text/css" />
     <link href="css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="css/default.css" rel="stylesheet" type="text/css" id="style_color" />
+	<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    color: white;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+   /* background-color: green;*/
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+	
+.sidenav a, .dropdown-btn1 {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    color: white;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn1:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    /*background-color: green;*/
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container1 {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+		
+</style>	
+
 </head>
 
 <body class="page-header-fixed">
@@ -83,11 +206,25 @@
                             <span class="title">Sales </span><i class="icon-dollar" style="padding-left: 140px"></i>
                         </a>
                     </li>
-					<li class="start active"><a href="purchase.html"><span class="title">Purchase  </span><i class="icon-shopping-cart" style="padding-left: 110px"> </i>
+					<li class="dropdown-btn1" ><span class="title" style="padding-left: 15px">Purchase  </span><i class="icon-angle-down"></i><i class="icon-shopping-cart" style="padding-left: 110px"> </i>
 						<span class="selected"></span>
-						</a>
+						
 					</li>
-                    <li><a href="report.html"><span class="title">Report  </span><i class="icon-file-text-alt"  style="padding-left: 130px"></i> </a></li>
+					<div class="dropdown-container">
+    				
+						<li class="dropdown-btn1" style="color: white" ><a href="vendor.html"><span class="title" style="color: white">Vendor </span> 
+							<i class="fa fa-caret-down"></i></a>
+  						</li>
+					
+						<li class="dropdown-btn1">Raw Material 
+							<i class="icon-angle-down"></i> 
+  						</li>
+						<div class="dropdown-container1"> 
+							<li style="padding-left: 20px ;padding-bottom: 5px"><a><span class="title" style="color: white">RM Master  </span></a></li>
+							<li style="padding-left: 20px"><a><span class="title" style="color: white">Raw Material Details</span></a> </li>
+						</div>
+					</div>
+  			<li><a href="report.html"><span class="title" >Report  </span><i class="icon-file-text-alt"  style="padding-left: 130px"></i> </a></li>
                 </ul>
                 <!-- END SIDEBAR MENU -->
             </div>
@@ -119,17 +256,7 @@
                                      data-original-title="Change dashboard date range">
                                     <i class="icon-calendar"></i><span></span><i class="icon-angle-down"></i>
                                 </div>
-                               <!--  <div class="search-container">
-                                    <form action="/action_page.php">
-                                    
-										<form action="/action_page.php">
-	      									<input type="text" placeholder="  Search..." name="search">
-											<button type="submit"><i class="icon-search"></i></button>
-	    								</form>
-                                   
-                                </form>
-                                 </div>-->
-                            </li>
+                               </li>
 							<li style="align-content: space-around "> 
 							</li>
                         </ul>
@@ -194,6 +321,35 @@
             App.init();
             TableManaged.init();
         });
+		var dropdown = document.getElementsByClassName("start active");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+	var dropdown = document.getElementsByClassName("dropdown-btn1");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent1= this.nextElementSibling;
+    if (dropdownContent1.style.display === "block") {
+      dropdownContent1.style.display = "none";
+    } else {
+      dropdownContent1.style.display = "block";
+    }
+  });
+}
+
     </script>
 		</div>
 	</div>
