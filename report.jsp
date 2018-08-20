@@ -239,7 +239,7 @@ background-color: gray;
                         </button>
                     </div>
                        <h4 class="page-title" style="padding-bottom: 10px">
-                            RM Material Master
+                            Report
                         </h4>
                 
                     <ul class="top-icons-agileits-w3layouts float-right">
@@ -281,22 +281,8 @@ background-color: gray;
 								<span  style="color: white"><i class="icon-home" style="color: black;"></i></span><a href="index.html">Home </a><i class="icon-angle-right"  style="color: black">
                                 </i>
                             </li>
-							<li><a href="purchase.html">Purchase </a>
-							<i class="icon-angle-right"  style="color: black;">
-                                </i>
-							</li>
-							<li><a href="rawmaterial.html">Raw Material </a>
-							<i class="icon-angle-right"  style="color: black;">
-                                </i>
-							</li>
-							
-							<li>
-								<a href="rm_master.html">RM Material Master</a>
-							</li>
-                              
-                            <li style="align-content: space-around "> 
-							</li>
-                        </ul>
+							<li><a href="purchase.html">Report </a>
+							                    </ul>
 							
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     
@@ -337,7 +323,7 @@ background-color: gray;
 						String connectionUrl = "jdbc:mysql://127.0.0.1:3306/";
 						String dbName = "Erp";
 						String userId = "root";
-						String password = "";
+						String password = "Ashu1997";
 						
 						try {
 						Class.forName(driverName);
