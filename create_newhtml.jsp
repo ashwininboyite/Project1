@@ -179,24 +179,32 @@ background-color: gray;
                   
                     <!--// Search-from -->
                     <ul class="top-icons-agileits-w3layouts float-right">
-                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="far fa-user"></i>
                             </a>
                             <div class="dropdown-menu drop-3">
+                                <%String name=session.getAttribute("username").toString();%>
+                                <a href="password.jsp" class="dropdown-item mt-3" id="Change_Password">
+                                    <h4>
+                                        <i class="fas fa-envelope mr-3"></i><%=name %></h4>
+                                </a>
                                 
-                                <a href="password.jsp" class="dropdown-item mt-3">
+                                <a href="password.jsp" class="dropdown-item mt-3" id="Change_Password">
                                     <h4>
                                         <i class="fas fa-link mr-3"></i>Change Password</h4>
                                 </a>
-                                <a href="logout.jsp" class="dropdown-item mt-3">
+                                  <a href=create_userhtml.jsp class="dropdown-item mt-3" id="Add_User">
+                                    <h4>
+                                        <i class="far fa-plus-square mr-3"></i>Add User</h4>
+                                </a>
+                              	  <a href="logout.jsp" class="dropdown-item mt-3" id="Logout"> 
                                     <h4>
                                         <i class="far fa-user mr-3"></i>Logout</h4>
                                 </a>
                                 </div>
-                        </li>
+                                             </li>
                     </ul>
                 </div>
             </nav>
@@ -215,7 +223,7 @@ background-color: gray;
 								<span  style="color: white"><i class="icon-home" style="color: black"></i></span><a href="index.html">Home </a>
                                 </i>
                             </li>
-							<li><a href="newuser.jsp.jsp">New User </a></li>
+							<li><a href="create_userhtml.jsp">New User </a></li>
 					</div>
                             </li>
 						</ul>
@@ -434,12 +442,15 @@ function display_vendor(){
     </script>
      <script src="js3/moment.min.js"></script>
     <script src="js3/pignose.calender.js"></script>
-          <script>
+                <script>
         $(document).ready(function () {
+        	
+        	display();
             $(".dropdown").hover(
                 function () {
                     $('.dropdown-menu', this).stop(true, true).slideDown("fast");
                     $(this).toggleClass('open');
+                    
                 },
                 function () {
                     $('.dropdown-menu', this).stop(true, true).slideUp("fast");
@@ -447,8 +458,33 @@ function display_vendor(){
                 }
             );
         });
+      function display()
+      {
+    	  $.ajax({
+    			async: false,
+    			url:"AdminAddUser.jsp",
+    			type:"GET",
+    			dataType:"json",
+    			success:function(data)
+    			{
+    				debugger;
+    				//alert(data);
+    				if(data[0].Result=="True") {
+    					
+    					$('#Add_User').show();
+    					
+    					}
+    					else{
+    						//alert("hi");
+    						
+    						$('#Add_User').hide();
+    						
+    					}
+    			}
+    	  });
+      }
     </script>
-    <script src="js/app.js" type="text/javascript"></script>
+ <script src="js/app.js" type="text/javascript"></script>
     <script src="js/table-managed.js" type="text/javascript"></script>
      <script type="text/javascript">
         $(document).ready(function () {
