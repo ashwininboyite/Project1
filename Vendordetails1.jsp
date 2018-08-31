@@ -178,7 +178,7 @@ background-color: gray;
                              
                             <div class="dropdown-menu drop-3">
                                 <%String name=session.getAttribute("username").toString();%>
-                                <a href="password.jsp" class="dropdown-item mt-3" id="email">
+                                <a href="index.jsp" class="dropdown-item mt-3" id="email">
                                     <h4>
                                         <i class="fas fa-envelope mr-3"></i><%=name %></h4>
                                 </a>
