@@ -117,36 +117,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         Reports
                     </a>
                 </li>
-               <!-- <li>
-                    <a href="pricing.html">
-                        <i class="fas fa-table"></i>
-                        Pricing Tables
-                    </a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
-                        <i class="fas fa-users"></i>
-                        User
-                        <i class="fas fa-angle-down fa-pull-right"></i>
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu3">
-                        <li>
-                            <a href="login.html">Login</a>
-                        </li>
-                        <li>
-                            <a href="register.html">Register</a>
-                        </li>
-                        <li>
-                            <a href="forgot.html">Forgot password</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="far fa-map"></i>
-                        Maps
-                    </a>
-                </li>-->
+               
             </ul>
         </nav>
 
@@ -175,16 +146,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <i class="far fa-user"></i>
                             </a>
                             <div class="dropdown-menu drop-3">
-                                
-                                <a href="password.jsp" class="dropdown-item mt-3">
+                                <%String name=session.getAttribute("FullName").toString();%>
+                                <a href="index.jsp" class="dropdown-item mt-3" id="Change_Password">
                                     <h4>
-                                        <i class="fas fa-link mr-3"></i>Chage Password</h4>
+                                        <i class="fas fa-envelope mr-3"></i><%=name %></h4>
                                 </a>
-                                <a href="logout.jsp" class="dropdown-item mt-3">
+                                
+                                <a href="password.jsp" class="dropdown-item mt-3" id="Change_Password">
+                                    <h4>
+                                        <i class="fas fa-link mr-3"></i>Change Password</h4>
+                                </a>
+                                  <a href=create_userhtml.jsp class="dropdown-item mt-3" id="Add_User">
+                                    <h4>
+                                        <i class="far fa-plus-square mr-3"></i>Add User</h4>
+                                </a>
+                              	  <a href="logout.jsp" class="dropdown-item mt-3" id="Logout"> 
                                     <h4>
                                         <i class="far fa-user mr-3"></i>Logout</h4>
                                 </a>
                                 </div>
+                            
                         </li>
                     </ul>
                 </div>
@@ -551,6 +532,79 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             );
         });
     </script>
+    <script>
+        //<![CDATA[
+        $(function () {
+            $('.calender').pignoseCalender({
+                select: function (date, obj) {
+                    obj.calender.parent().next().show().text('You selected ' +
+                        (date[0] === null ? 'null' : date[0].format('YYYY-MM-DD')) +
+                        '.');
+                }
+            });
+            $('.multi-select-calender').pignoseCalender({
+                multiple: true,
+                select: function (date, obj) {
+                    obj.calender.parent().next().show().text('You selected ' +
+                        (date[0] === null ? 'null' : date[0].format('YYYY-MM-DD')) +
+                        '~' +
+                        (date[1] === null ? 'null' : date[1].format('YYYY-MM-DD')) +
+                        '.');
+                }
+            });
+        });
+        //]]>
+    </script>
+    <!--// Calender -->
+
+    <!-- profile-widget-dropdown js-->
+    <script src="js3/script.js"></script>
+    <!--// profile-widget-dropdown js-->
+
+    <!-- Count-down -->
+    <script>
+        $(document).ready(function () {
+        	
+        	display();
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                    
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+      function display()
+      {
+    	  $.ajax({
+    			async: false,
+    			url:"AdminAddUser.jsp",
+    			type:"GET",
+    			dataType:"json",
+    			success:function(data)
+    			{
+    				debugger;
+    				//alert(data);
+    				if(data[0].Result=="True") {
+    					
+    					$('#Add_User').show();
+    					
+    					}
+    					else{
+    						//alert("hi");
+    						
+    						$('#Add_User').hide();
+    						
+    					}
+    			}
+    	  });
+      }
+    </script>
+    
     <!-- //dropdown nav -->
 
     <!-- Js for bootstrap working-->
