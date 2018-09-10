@@ -138,13 +138,6 @@ background-color: gray;
                 	</li>
                   </ul>
                 </li>
-               <!-- <li>
-                    <a href="mailbox.html">
-                        <i class="far fa-envelope"></i>
-                        Mailbox
-                        <span class="badge badge-secondary float-md-right bg-danger">5 New</span>
-                    </a>
-                </li>-->
                 <li>
                     <a href="widgets.html">
                         <i class="far fa-window-restore"></i>
@@ -243,14 +236,28 @@ background-color: gray;
 							<div id="builder-basic" class="query-builder form-inline" style="padding:10px">
 								<table border="0">
 									<tr  style="padding: 100px">
+									<td>
+									<div class="col span-1-of-2">
+                                    <select name="Search_id" id="Search_id"  class="form-control" onchange="select_option(this);" >
+                                        <option>Search Option </option>
+										 <option value="1">Vendor Name</option>
+                                        <option value="2" >Vendor Code</option>
+										
+                                    </select>
+                                </div>
+							
+									</td>
                                        <td>
-										<input type="text"  value="" id="inputString" class="form-control" placeholder="Search Vendor Name"
+										<input type="text"  value="" id="inputString" class="form-control" placeholder="Search"
 										onkeyup="lookup(this.value);"  name="vendor"/>
 								
 										<div class="suggestionsBox" id="suggestions" style="display: none;">
 										<div class="suggestionList" id="autoSuggestionsList">
 										</div>
 										</div>
+									</td>
+									<td>
+										<h6  id="selectoption" style="color: black"	>*Select option</h6>
 									</td>
                                 </table>
 					</div>
@@ -344,15 +351,7 @@ background-color: gray;
 							</table>
 							
 						</div>
-						</form>
-            
-                </div>
-            <!--// Three-grids -->
-            <!-- Countdown -->
-            <!--// Countdown -->
-            <!-- Copyright -->
-           
-            <!--// Copyright -->
+						</form>            
         </div>
     </div>
 
@@ -361,28 +360,66 @@ background-color: gray;
 	<script type="text/javascript">
 function lookup(inputString) {
 	debugger
+	
+	var selected = document.getElementById('Search_id');
+	var data_id=selected.options[selected.selectedIndex].value;
+	if(data_id=="1")
+		{
+				$('#selectoption').hide();
+				if(inputString.length == 0) {
+				$('#suggestions').hide();
+				} else {
+				$.post("vendor_Search.jsp", {queryString: ""+inputString+"",querySelection:""+data_id+""}, function(data){
+				//	var letters = /^[A-Za-z0-9<]+$/;
+					var result = data.trim();
+					var patt = new RegExp("<");
+					var res = patt.test(result);
+					//debugger
+				if(res) {
+				$('#suggestions').show();
+				$('#autoSuggestionsList').html(data);
+				}
+				else{
+					//alert("hi");
+					$('#suggestions').hide();
+					$('#Display_id1').hide();
+					$('#Display_id2').hide();
+					$('#Display_id3').show();
+					$('#selectoption').hide();
+				}
+				});
+				}
+			}
+	else if(data_id=="2")
+	{
+		$('#selectoption').hide();
 		if(inputString.length == 0) {
-		$('#suggestions').hide();
-		} else {
-		$.post("vendor_Search.jsp", {queryString: ""+inputString+""}, function(data){
-		//	var letters = /^[A-Za-z0-9<]+$/;
-			var result = data.trim();
-			var patt = new RegExp("<");
-			var res = patt.test(result);
-			//debugger
-		if(res) {
-		$('#suggestions').show();
-		$('#autoSuggestionsList').html(data);
-		}
-		else{
-			//alert("hi");
 			$('#suggestions').hide();
-			$('#Display_id1').hide();
-			$('#Display_id2').hide();
-			$('#Display_id3').show();
-		}
-		});
-		}
+			} else {
+			$.post("vendor_Search.jsp", {queryString: ""+inputString+"",querySelection:""+data_id+""}, function(data){
+			//	var letters = /^[A-Za-z0-9<]+$/;
+				var result = data.trim();
+				var patt = new RegExp("<");
+				var res = patt.test(result);
+				//debugger
+			if(res) {
+			$('#suggestions').show();
+			$('#autoSuggestionsList').html(data);
+			}
+			else{
+				//alert("hi");
+				$('#suggestions').hide();
+				$('#Display_id1').hide();
+				$('#Display_id2').hide();
+				$('#Display_id3').show();
+				$('#selectoption').hide();
+			}
+			});
+			}
+	}
+	else{
+		$('#selectoption').show();
+	}
 }
 function fill(thisValue) {
 	debugger
@@ -397,6 +434,7 @@ function Search_name(inputString) {
 	$('#Display_id1').hide();
 	$('#Display_id2').show();
 	$('#Display_id3').hide();
+	$('#selectoption').hide();
 	value=inputString;
 	
 	$.ajax({
@@ -434,11 +472,25 @@ function Search_name(inputString) {
 		}
 	})
 }
+
+function select_option(options)
+{
+	if(options.value==='1' || options.value==='2')
+		{
+		$('#selectoption').hide();
+		$('#Display_id1').show();
+		$('#Display_id2').hide();
+		$('#Display_id3').hide();
+		$('#inputString').show();
+		document.getElementById("inputString").value='';
+		}
+}
 function display_vendor(){
 	$('#Display_id1').show();
 	$('#Display_id2').hide();
 	$('#Display_id3').hide();
 	$('#inputString').show();
+	$('#selectoption').hide();
 	document.getElementById("inputString").value='';
 }
 </script>
@@ -518,6 +570,7 @@ function display_vendor(){
             TableManaged.init();
             $('#Display_id2').hide();
 			$('#Display_id3').hide();
+			$('#selectoption').hide();
         });
     </script>
     <script type="text/javascript">
