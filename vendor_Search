@@ -1,3 +1,4 @@
+<%@page import="java.awt.List"%>
 <%@ page language="java" import="java.sql.*" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -5,23 +6,44 @@
 
 <%
 String str=request.getParameter("queryString");
+String str1=request.getParameter("querySelection");
+System.out.print(str1);
 try {
-String connectionURL = "jdbc:mysql://127.0.0.1:3306/erp";
+String connectionURL = "jdbc:mysql://127.0.0.1:3306/Erp";
 Connection con;
 Class.forName("com.mysql.jdbc.Driver");
 // Get a Connection to the database
-con = DriverManager.getConnection(connectionURL, "root", ""); 
+con = DriverManager.getConnection(connectionURL, "root", "Ashu1997");
+System.out.print("hi");
 //Add the data into the database
-String sql = "SELECT Name FROM vendors where Name  LIKE '"+str+"%' LIMIT 20";
+if(str1.contains("1")){
+String sql = "SELECT Name FROM vendors where Name  LIKE '%"+str+"%' LIMIT 20";
 Statement stm = con.createStatement();
 stm.executeQuery(sql);
 ResultSet rs= stm.getResultSet();
 while (rs.next()){
-		String s=rs.getString("Name");%>
+		String s=rs.getString("Name");
+		System.out.print(s);%>
 		<li onclick='fill("<%=s%>");'><%=rs.getString("Name") %></li>
 		<% 	
+	}
 }
-System.out.println("Search vendor");
+else if(str1.contains("2"))
+{
+	String sql = "SELECT Vendorcode FROM vendors where Vendorcode  LIKE '%"+str+"%' LIMIT 20";
+	Statement stm = con.createStatement();
+	stm.executeQuery(sql);
+	ResultSet rs= stm.getResultSet();
+	while (rs.next()){
+			String s=rs.getString("Vendorcode");
+			//System.out.print(s);%>
+			<li onclick='fill("<%=s%>");'><%=rs.getString("Vendorcode") %></li>
+			<% 	
+	}
+
+}
+//System.out.println("Search vendor");
 }catch(Exception e){
 out.println("Exception is ;"+e);
+List list = new List();
 }%>
