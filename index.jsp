@@ -1,3 +1,4 @@
+
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -6,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>ERP Main</title>
     <!-- Meta Tags -->
@@ -36,6 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--// Calender Css -->
     <!-- Common Css -->
     <link href="css3/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css3/style4.css" rel="stylesheet" type="text/css" media="all" />
     <!--// Common Css -->
     <!-- Nav Css -->
     <link rel="stylesheet" href="css3/style4.css">
@@ -49,7 +50,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!--//web-fonts-->
-</head>
+		<meta name="description" content="chart created using amCharts live editor" />
+		<!-- amCharts javascript sources -->
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/serial.js"></script>
+		<script type="text/javascript" src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
+		</head>
 
 <body>
     <div class="se-pre-con"></div>
@@ -309,9 +315,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </div>
                                 </li>
                                 <li class="py-md-4 py-3">Opera
-                                    <span class="float-right">80%</span>
+                                    <span class="float-right">100%</span>
                                     <div class="progress progress-striped active progress-right">
-                                        <div class="bar light-blue" style="width:80%;"></div>
+                                        <div class="bar light-blue" style="width:100%;"></div>
                                     </div>
                                 </li>
                                 <li class="last py-md-4 py-3">Others
@@ -323,6 +329,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </ul>
                         </div>
                     </div>
+                    <div id="chartdiv" style="width: 100%; height: 400px; background-color: #243542;" ></div>
+                    
                     <!--// Browser stats -->
                 </div>
             </div>
@@ -493,7 +501,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $('.calender').pignoseCalender({
                 select: function (date, obj) {
                     obj.calender.parent().next().show().text('You selected ' +
-                        (date[0] === null ? 'null' : date[0].format('YYYY-MM-DD')) +
+                         (date[0] === null ? 'null' : date[0].format('YYYY-MM-DD')) +
                         '.');
                 }
             });
@@ -604,7 +612,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     	  });
       }
     </script>
-    
+    	<script type="text/javascript">
+		 $(document).ready(function(){
+		    	$.ajax({
+					async: false,
+					url:"grap_page.jsp",
+					type:"GET",
+					dataType:"json",
+					success:function(data)
+					{
+						debugger
+		
+		var chart = AmCharts.makeChart("chartdiv", {
+ "theme": "dark",
+ "type": "serial",
+	"startDuration": 2,
+ "dataProvider":data,
+ "graphs": [{
+     "balloonText": "[[category]]: <b>[[value]]</b>",
+     "fillColorsField": "color",
+     "fillAlphas": 1,
+     "lineAlpha": 0.1,
+     "type": "column",
+     "valueField": "innvalue"
+ }],
+ "depth3D": 20,
+	"angle": 30,
+ "chartCursor": {
+     "categoryBalloonEnabled": false,
+     "cursorAlpha": 0,
+     "zoomable": false
+ },
+ "categoryField": "date",
+ "categoryAxis": {
+     "gridPosition": "start",
+     "labelRotation": 45
+ },
+ "export": {
+ 	"enabled": true
+  }
+
+});
+					}
+				});
+		 });
+			
+	
+		</script>
     <!-- //dropdown nav -->
 
     <!-- Js for bootstrap working-->
