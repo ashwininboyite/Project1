@@ -1,24 +1,22 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="java.sql.*"%>
-<%@page import="java.util.*"%>
-
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>ERP</title>
-    <!-- Meta Tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <meta name="keywords" content="Modernize Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <meta http-equiv="EXPIRES" content="0" />
+    <title>Raw Material Master</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <script>
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
@@ -26,8 +24,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+        
     </script>
-      <!-- //Meta Tags -->
+<style type="text/css">
+.mylist li:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    
+    background: #565f5b;
+}
+body {
+font-family: Helvetica;
+font-size: 13px;
+color: #000;
+}
+.suggestionsBox {
+position: relative;
+margin: 0px 0px 0px 0px;
+width: 210px;
+background-color: white;
+-moz-border-radius: 7px;
+-webkit-border-radius: 1px;
+border: 2px solid #ced4da;
+color: #fff;
+max-height:80px;
+overflow-y:scroll;
+
+}
+.suggestionList {
+margin: 0px;
+padding: 0px;
+
+}
+.suggestionList li {
+margin: 0;
+cursor: pointer;
+color: black;
+list-style:none;
+border-style: solid;
+border-width: 0.1px;
+border-color: #ced4da;
+border-bottom: 5px solid rgba(0,0,0,0);
+padding-left: 15px;
+}
+.suggestionList li:hover {
+background-color:#b0ded7 ;
+}
+</style>
+
+    <!-- //Meta Tags -->
 
     <!-- Style-sheets -->
     <!-- Bootstrap Css -->
@@ -50,82 +97,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--// Fontawesome Css -->
     <!--// Style-sheets -->
 	<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
-    
+    <link href="css3/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--web-fonts-->
     <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <!--//web-fonts-->
-  <style type="text/css">
-body {
-font-family: Helvetica;
-font-size: 13px;
-color: #000;
-}
-.suggestionsBox {
-position: relative;
-margin: 0px 0px 0px 0px;
-width: 182px;
-background-color: gray;
--moz-border-radius: 7px;
--webkit-border-radius: 7px;
-border: 2px solid #000;
-color: #fff;
-}
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    margin-left:-118px;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-.suggestionList {
-margin: 0px;
-padding: 0px;
-}
-.suggestionList li {
-margin: 0px 0px 3px 0px;
-padding: 3px;
-cursor: pointer;
-}
-.suggestionList li:hover {
-background-color: gray;
-}
-
- 
-  .odd{background-color: white;} 
-  .even{background-color: gray;} 
-</style>
     
+    <!--//web-fonts-->
 </head>
 
 <body>
@@ -135,21 +112,21 @@ background-color: gray;
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h1>
-                    <a  style="font-family: monospace">ERP</a>
+                    <a href="index.html" style="font-family: monospace">ERP</a>
                 </h1>
                 <span style="font-family: monospace">ERP</span>
             </div>
 			
             <!--<div class="profile-bg"></div>-->
-            <ul class="list-unstyled components">
+            <ul class="list-unstyled components mylist">
                 <li class="active">
                     <a href="index.html">
-                        <i class="fas fa-th-large"></i>
+                        <i class="icon-dashboard"></i>
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="Salesreport.jsp">
+                    <a href="charts.html">
                         <i class="fas fa-chart-pie"></i>
                         Sales
                     </a>
@@ -172,59 +149,22 @@ background-color: gray;
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="rm_master.jsp">Raw Material Master</a>
+                            <a href="cards.html">Raw Material Master</a>
                         </li>
                         <li>
-                            <a href="rawmaterialdetail.jsp">Raw Material Details</a>
+                            <a href="carousels.html">Raw Material Details</a>
                         </li>
                           </ul>
                 	</li>
                   </ul>
                 </li>
-               <!-- <li>
-                    <a href="mailbox.html">
-                        <i class="far fa-envelope"></i>
-                        Mailbox
-                        <span class="badge badge-secondary float-md-right bg-danger">5 New</span>
-                    </a>
-                </li>-->
                 <li>
-                    <a href="Report.jsp">
+                    <a href="widgets.html">
                         <i class="far fa-window-restore"></i>
                         Reports
                     </a>
                 </li>
-               <!-- <li>
-                    <a href="pricing.html">
-                        <i class="fas fa-table"></i>
-                        Pricing Tables
-                    </a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
-                        <i class="fas fa-users"></i>
-                        User
-                        <i class="fas fa-angle-down fa-pull-right"></i>
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu3">
-                        <li>
-                            <a href="login.html">Login</a>
-                        </li>
-                        <li>
-                            <a href="register.html">Register</a>
-                        </li>
-                        <li>
-                            <a href="forgot.html">Forgot password</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="far fa-map"></i>
-                        Maps
-                    </a>
-                </li>-->
-            </ul>
+                          </ul>
         </nav>
 
         <!-- Page Content Holder -->
@@ -238,37 +178,45 @@ background-color: gray;
                             <i class="fas fa-bars"></i>
                         </button>
                     </div>
-                       <h4 class="page-title" style="padding-bottom: 10px">
-                            RM Material Master
+                   <h4 class="page-title" style="padding-bottom: 10px">
+                            Raw Material Master
                         </h4>
-                
                     <ul class="top-icons-agileits-w3layouts float-right">
                         
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                <i class="far fa-user" style="color: black;"></i>
+                                <i class="far fa-user" style="color: black"></i>
                             </a>
+                             
                             <div class="dropdown-menu drop-3">
+                                <%String name=session.getAttribute("FullName").toString();%>
+                                <a href="index.jsp" class="dropdown-item mt-3" id="Change_Password">
+                                    <h4>
+                                        <i class="fas fa-envelope mr-3"></i><%=name %></h4>
+                                </a>
                                 
-                                <a href="password.jsp" class="dropdown-item mt-3">
+                                <a href="password.jsp" class="dropdown-item mt-3" id="Change_Password">
                                     <h4>
                                         <i class="fas fa-link mr-3"></i>Change Password</h4>
                                 </a>
-                                <a href="logout.jsp" class="dropdown-item mt-3">
+                                  <a href=create_userhtml.jsp class="dropdown-item mt-3" id="Add_User">
+                                    <h4>
+                                        <i class="far fa-plus-square mr-3"></i>Add User</h4>
+                                </a>
+                              	  <a href="logout.jsp" class="dropdown-item mt-3" id="Logout"> 
                                     <h4>
                                         <i class="far fa-user mr-3"></i>Logout</h4>
                                 </a>
                                 </div>
+                            
                         </li>
                     </ul>
                 </div>
             </nav>
-         <div class="page-content-wrapper">
-            <div class="page-content">
-                <!-- BEGIN PAGE HEADER-->
-				
-               <div class="container-fluid">
+            <!--// top-bar -->
+                 <!--// three-grids -->
+            <div class="container-fluid">
             <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
@@ -276,43 +224,36 @@ background-color: gray;
                        
 						<div>	
       					</div>
-                     <ul class="page-breadcrumb breadcrumb">
+                        <ul class="page-breadcrumb breadcrumb">
                             <li>
-								<span  style="color: white"><i class="icon-home" style="color: black;"></i></span><a href="index.html">Home </a><i class="icon-angle-right"  style="color: black">
+								<span  style="color: white"><i class="icon-home" style="color: black"></i></span><a href="index.html">Home </a><i class="icon-angle-right"  style="color: black">
                                 </i>
                             </li>
-							<li><a href="purchase.html">Purchase </a>
-							<i class="icon-angle-right"  style="color: black;">
-                                </i>
-							</li>
-							<li><a href="rawmaterial.html">Raw Material </a>
-							<i class="icon-angle-right"  style="color: black;">
-                                </i>
-							</li>
-							
-							<li>
-								<a href="rm_master.html">RM Material Master</a>
-							</li>
-                              
-                            <li style="align-content: space-around "> 
-							</li>
-                        </ul>
-							
+							<li><a href="Vendordetails.jsp">Purchase </a><i class="icon-angle-right"  style="color: black"></i></li>
+							<li><a href="Vendordetails.jsp">Vendor Details</a></li>
+                            <li class="pull-right">
+								<div>
+                                </div>
+                            </li>
+						</ul>
+						
                         <!-- END PAGE TITLE & BREADCRUMB-->
-                    
-			    <form action="updateraw.jsp" method=post >
-				<div class="row" style="padding-left: 10px; padding-bottom: 10px">
+                    </div>
+                </div>
+               
+					 <form action="updateraw.jsp" method=post >
+				<div class="row" style="padding-left: 500px; padding-bottom: 10px">
 						<div class="btn-group">
-							<button class="btn btn-primary" name="new_clicked"><i class="icon-plus" style="color: black;"></i>&nbsp;New</button>
+							<button class="btn btn-primary" name="new_clicked"><i class="icon-plus"></i>&nbsp;New</button>
 						</div>
 						<div class="btn-group">
-							<button class="btn btn-primary" name="edit_clicked"><i class="icon-pencil"  style="color: black;"></i>&nbsp;Edit</button>
+							<button class="btn btn-primary" name="edit_clicked"><i class="icon-pencil"></i>&nbsp;Edit</button>
 						</div>
 						<div class="btn-group">
-							<button class="btn btn-primary" name="delete_clicked"><i class="icon-trash"  style="color: black;"></i>&nbsp;Delete</button>
+							<button class="btn btn-primary" name="delete_clicked"><i class="icon-trash" ></i>&nbsp;Delete</button>
 						</div>
 						<div class="btn-group">
-							<button class="btn btn-primary" name="close_clicked"><i class="icon-remove-sign"  style="color: black;"></i>&nbsp;Close</button></a>
+							<button class="btn btn-primary" name="close_clicked"><i class="icon-remove-sign"></i>&nbsp;Close</button></a>
 						</div>
 				</div>
 				<div class="row" >
@@ -321,7 +262,7 @@ background-color: gray;
 									<tr  style="padding: 100px">
                                        <td>
 										<input type="text"  value="" id="inputString" class="form-control" placeholder="Search Grade Name"
-										onkeyup="lookup(this.value);" onblur="fill();" name="vendor"/>
+										onkeyup="lookup(this.value);" onblur="fill();" name="vendor" autocomplete="off"/>
 								
 										<div class="suggestionsBox" id="suggestions" style="display: none;">
 										<div class="suggestionList" id="autoSuggestionsList">
@@ -331,7 +272,11 @@ background-color: gray;
                                 </table>
 					</div>
 				</div>
-										<table border="0" style="border: 2px solid #2C3E50" id="Display_id11" >
+				
+				<div id="Display_id1" >
+                 
+				<div class="row" >
+								<table border="1" style="border: 2px solid #2C3E50" id="Display_id11" >
 													<tr  style="padding: 100px; background-color: #5fec75; border: 2px solid #2C3E50">
                                                         <td style="padding: 10px;border: 2px solid #2C3E50 " rowspan="2"> 
                                                             <label class="control-label1">RM Grade:</label>
@@ -398,7 +343,7 @@ background-color: gray;
 											String s=request.getParameter("rm_grade");
 											response.setContentType("text/html");   
 											Class.forName("com.mysql.jdbc.Driver");    
-											con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Erp","root",""); 
+											con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Erp","root","Ashu1997"); 
 											smt=con.createStatement();
 											String sql ="select * from Mingrade Natural join Maxgrade;";
 											int i=0;
@@ -518,7 +463,7 @@ background-color: gray;
 						</div>
 						</div>
 						
-						<div id="Display_id2" >
+						<div id="Display_id2">
 						<h5 class="page-title" style="font-size: 30px">
                             Search Result
                         </h5>
@@ -530,7 +475,6 @@ background-color: gray;
 								</tr>	
 							</table>
                         <div class="row">
-                        <h5 id="RMGRADE" style="color: green;"></h5>
 								<table border="1" style="border: 2px solid #2C3E50">
 													<tr  style="padding: 100px; background-color: #5fec75; border: 2px solid #2C3E50">
                                                         <td style="padding: 10px;border: 2px solid #2C3E50 " rowspan="2"> 
@@ -594,7 +538,7 @@ background-color: gray;
 										<tr  style="padding: 100px; border: 2px solid #2C3E50">
                                                         <td style="padding: 1px;border: 1px solid #2C3E50;font-size:16px;text-align:center " rowspan="2"> 
                                                            <input type="checkbox" name="check<%=j%>" id="mytext" >
-                                                       	
+                                                       
                                                         </td>
 														<td style='width:80px;border: 1px solid #2C3E50 ;font-size:16px;text-align:center'>
 															<label><b>MIN</b></label>
@@ -670,35 +614,30 @@ background-color: gray;
 						</table>
 						
 						</div>
-								  </div>
-								  <div id="Display_id3">
+                        </div>
+ 						<!--  will display for when  particular match does not exist -->
+						<div id="Display_id3">
 							<h5 class="page-title" style="font-size: 30px">
                             	Search Result
                        		</h5>
 							<table class="table table-striped table-bordered sortable table-hover">
 								<tr class="display_dec">
 									<td style="height: 40px">
-										<a><i class="icon-remove-sign" style="color: black" onclick="display_vendor();"> back</i></a>
+										<a style="color: black;font-size: 20px; cursor: pointer"><i class="icon-remove-sign"  onclick="display_vendor();" style="cursor: pointer"> back</i></a>
 									</td>
 									<td style="height: 40px">
-										<h4 class="page-title" >
+										<h6 class="page-title" >
                             				Search Result Not Found
-                       					</h4>
+                       					</h6>
 									</td>
 								</tr>
 							</table>
-						
+							
 						</div>
-						
-  			
-  				  </form>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-  <script type="text/javascript">
-function lookup(inputString) {
+						</form>	
+	<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript">
+	function lookup(inputString) {
 		if(inputString.length == 0) {
 		$('#suggestions').hide();
 		} else {
@@ -707,108 +646,94 @@ function lookup(inputString) {
 			var result = data.trim();
 			var patt = new RegExp("<");
 			var res = patt.test(result);
-			debugger
+			//debugger
 		if(res) {
 		$('#suggestions').show();
 		$('#autoSuggestionsList').html(data);
 		}
 		else{
-			//alert("hi");
 			debugger
+			//alert("hi");
 			$('#suggestions').hide();
-			$('#Display_id11').hide();
+			$('#Display_id1').hide();
 			$('#Display_id2').hide();
 			$('#Display_id3').show();
 		}
 		});
 		}
 }
-function fill(thisValue) {
-	$('#inputString').val(thisValue);
-	setTimeout("$('#suggestions').hide();",200);
-	if(thisValue!=null)
-	{Search_name(thisValue);}
-}
-function Search_name(inputString) {
-	//$('#inputString').hide();
-	$('#Display_id11').hide();
-	$('#Display_id2').show();
-	$('#Display_id3').hide();
-	value=inputString;
-	
-	$.ajax({
-		async: false,
-		url:"grade_Search_display.jsp",
-		type:"POST",
-		dataType:"json",
-		data:{'name':value},
-		success:function(data)
-		{
-			debugger
-			for (var key in data) {
-				if (data.hasOwnProperty(key)) {
-				document.getElementById("mytext").value =data[key].Rmgrade ;
-				$('#RMGRADE').text(data[key].Rmgrade);
-				$('#rmin_c').text(data[key].MinC);
-			  	$('#rmin_mn').text(data[key].MinMn);
-			  	$('#rmin_si').text(data[key].MinSi);
-			  	$('#rmin_s').text(data[key].MinS);
-			  	$('#rmin_p').text(data[key].MinP);
-			  	$('#rmin_cr').text(data[key].MinCr);
-			  	$('#rmin_ni').text(data[key].MinNi);
-			  	$('#rmin_mo').text(data[key].MinMo);
-			  	$('#rmin_cu').text(data[key].MinCu);
-			  	$('#rmin_v').text(data[key].MinV);
-			  	$('#rmin_al').text(data[key].MinAl);
-			  	$('#rmin_w').text(data[key].MinW);
-			  	$('#rmin_n').text(data[key].MinN);
-			  	
-			  	$('#rmax_c').text(data[key].MaxC);
-			  	$('#rmax_mn').text(data[key].MaxMn);
-			  	$('#rmax_si').text(data[key].MaxSi);
-			  	$('#rmax_s').text(data[key].MaxS);
-			  	$('#rmax_p').text(data[key].MaxP);
-			  	$('#rmax_cr').text(data[key].MaxCr);
-			  	$('#rmax_ni').text(data[key].MaxNi);
-			  	$('#rmax_mo').text(data[key].MaxMo);
-			  	$('#rmax_cu').text(data[key].MaxCu);
-			  	$('#rmax_v').text(data[key].MaxV);
-			  	$('#rmax_al').text(data[key].MaxAl);
-			  	$('#rmax_w').text(data[key].MaxW);
-			  	$('#rmax_n').text(data[key].MaxinN);
+
+	function fill(thisValue) {
+		$('#inputString').val(thisValue);
+		setTimeout("$('#suggestions').hide();",200);
+		if(thisValue!=null)
+		{Search_name(thisValue);}
+	}
+
+	function Search_name(inputString) {
+		//$('#inputString').hide();
+		//debugger
+		$('#Display_id1').hide();
+		$('#Display_id2').show();
+		$('#Display_id3').hide();
+		value=inputString;
+		
+		$.ajax({
+			
+			async: false,
+			url:"grade_Search_display.jsp",
+			type:"GET",
+			dataType:"json",
+			data:{'name':value},
+			success:function(data)
+			{
+				for (var key in data) {
+					if (data.hasOwnProperty(key)) {
+					document.getElementById("mytext").value =data[key].Rmgrade ;	
+					$('#rmin_c').text(data[key].MinC);
+				  	$('#rmin_mn').text(data[key].MinMn);
+				  	$('#rmin_si').text(data[key].MinSi);
+				  	$('#rmin_s').text(data[key].MinS);
+				  	$('#rmin_p').text(data[key].MinP);
+				  	$('#rmin_cr').text(data[key].MinCr);
+				  	$('#rmin_ni').text(data[key].MinNi);
+				  	$('#rmin_mo').text(data[key].MinMo);
+				  	$('#rmin_cu').text(data[key].MinCu);
+				  	$('#rmin_v').text(data[key].MinV);
+				  	$('#rmin_al').text(data[key].MinAl);
+				  	$('#rmin_w').text(data[key].MinW);
+				  	$('#rmin_n').text(data[key].MinN);
+				  	
+				  	$('#rmax_c').text(data[key].MaxC);
+				  	$('#rmax_mn').text(data[key].MaxMn);
+				  	$('#rmax_si').text(data[key].MaxSi);
+				  	$('#rmax_s').text(data[key].MaxS);
+				  	$('#rmax_p').text(data[key].MaxP);
+				  	$('#rmax_cr').text(data[key].MaxCr);
+				  	$('#rmax_ni').text(data[key].MaxNi);
+				  	$('#rmax_mo').text(data[key].MaxMo);
+				  	$('#rmax_cu').text(data[key].MaxCu);
+				  	$('#rmax_v').text(data[key].MaxV);
+				  	$('#rmax_al').text(data[key].MaxAl);
+				  	$('#rmax_w').text(data[key].MaxW);
+				  	$('#rmax_n').text(data[key].MaxinN);
+					}
 				}
 			}
-		}
-		,error:function(error) {
-			alert('not found!!')
-		}
-	})
-}
+			,error:function(error) {
+				alert('not found!!')
+			}
+		})
+	}
+
 function display_vendor(){
-	$('#Display_id11').show();
+	$('#Display_id1').show();
 	$('#Display_id2').hide();
 	$('#Display_id3').hide();
 	$('#inputString').show();
 	document.getElementById("inputString").value='';
 }
-
-function alternate(id){ 
-	  if(document.getElementsByTagName){  
-	    var table = document.getElementById(id);   
-	    var rows = table.getElementsByTagName("tr");   
-	    for(i = 2; i < rows.length; i++){ 
-	    	if(i%2==0){
-	    	 rows[i].className = "even";}
-	    	else{
-	    		rows[i].className="odd";}
-	    }
-	  //manipulate rows 
-	      
-	    
-	  } 
-	}
 </script>
-
     <!-- Required common Js -->
     <script src='js3/jquery-2.2.3.min.js'></script>
     <!-- //Required common Js -->
@@ -833,15 +758,18 @@ function alternate(id){
             });
         });
     </script>
-       <!--// Graph -->
-     <script src="js3/moment.min.js"></script>
+
+    <script src="js3/moment.min.js"></script>
     <script src="js3/pignose.calender.js"></script>
           <script>
         $(document).ready(function () {
+        	
+        	display();
             $(".dropdown").hover(
                 function () {
                     $('.dropdown-menu', this).stop(true, true).slideDown("fast");
                     $(this).toggleClass('open');
+                    
                 },
                 function () {
                     $('.dropdown-menu', this).stop(true, true).slideUp("fast");
@@ -849,6 +777,30 @@ function alternate(id){
                 }
             );
         });
+      function display()
+      {
+    	  $.ajax({
+    			async: false,
+    			url:"AdminAddUser.jsp",
+    			type:"GET",
+    			dataType:"json",
+    			success:function(data)
+    			{
+    				//debugger;
+    				//alert(data);
+    				if(data[0].Result=="True") {
+    					
+    					$('#Add_User').show();
+    					
+    					}
+    					else{
+    						//alert("hi");
+    						$('#Add_User').hide();
+    						
+    					}
+    			}
+    	  });
+      }
     </script>
     <script src="js/app.js" type="text/javascript"></script>
     <script src="js/table-managed.js" type="text/javascript"></script>
@@ -858,8 +810,47 @@ function alternate(id){
             TableManaged.init();
             $('#Display_id2').hide();
 			$('#Display_id3').hide();
+			$('#selectoption').hide();
         });
     </script>
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+    	$.ajax({
+			async: false,
+			url:"button_display.jsp",
+			type:"GET",
+			dataType:"json",
+			success:function(data)
+			{
+				//debugger;
+				//alert(data);
+				if(data[0].Result_delete=="True") {
+					
+					$('#delete_button').show();
+					
+					}
+					else{
+						//alert("hi");
+						$('#delete_button').hide();
+						
+					}
+				if(data[0].Result_update=="True") {
+					
+					$('#Edit_button').show();
+					
+					}
+					else{
+						//alert("hi");
+						$('#Edit_button').hide();
+						
+					}
+
+			}
+	  });
+	});
+	
+	  </script>
     <!-- //dropdown nav -->
 
     <!-- Js for bootstrap working-->
