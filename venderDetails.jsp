@@ -27,6 +27,14 @@
         
     </script>
 <style type="text/css">
+.mylist li:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    
+    background: #565f5b;
+}
 body {
 font-family: Helvetica;
 font-size: 13px;
@@ -34,8 +42,8 @@ color: #000;
 }
 .suggestionsBox {
 position: relative;
-margin: 0px 0px 0px 0px;
-width: 210px;
+/*margin-left:37.5%% ;
+width: 63%%;*/
 background-color: white;
 -moz-border-radius: 7px;
 -webkit-border-radius: 1px;
@@ -89,7 +97,7 @@ background-color:#b0ded7 ;
     <!--// Fontawesome Css -->
     <!--// Style-sheets -->
 	<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
-    
+    <link href="css3/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--web-fonts-->
     <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -110,10 +118,10 @@ background-color:#b0ded7 ;
             </div>
 			
             <!--<div class="profile-bg"></div>-->
-            <ul class="list-unstyled components">
+            <ul class="list-unstyled components mylist">
                 <li class="active">
                     <a href="index.html">
-                        <i class="fas fa-th-large"></i>
+                        <i class="icon-dashboard"></i>
                         Dashboard
                     </a>
                 </li>
@@ -141,10 +149,10 @@ background-color:#b0ded7 ;
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="cards.html">Raw Material Master</a>
+                            <a href="rm_master.jsp">Raw Material Master</a>
                         </li>
                         <li>
-                            <a href="carousels.html">Raw Material Details</a>
+                            <a href="rm">Raw Material Details</a>
                         </li>
                           </ul>
                 	</li>
@@ -208,7 +216,7 @@ background-color:#b0ded7 ;
             </nav>
             <!--// top-bar -->
                  <!--// three-grids -->
-            <div class="container-fluid">
+            <div>
             <div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
@@ -234,20 +242,20 @@ background-color:#b0ded7 ;
                 </div>
                
 					<form name=myname method=post action="update.jsp">
-					 <div class="row" >
-							<div class="col-md-9 col-md-push-1">
-							<table>
+					<div>
+							<table style="width: 100%" border="0">
 							<tr>
-							<td>
-							<select name="Search_id" id="Search_id" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Select Category">
-                            <option>Select Category </option>
-										 <option value="1">Vendor Name</option>
-                                        <option value="2" >Vendor Code</option>
-										
-                        </select>
-							
+						<!-- 	<td>
+								<div id="select_drop_down">
+										<select name="Search_id" id="Search_id" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Select Category" >
+			                            <option value="select_op">Select Category </option>
+													 <option value="1">Vendor Name</option>
+			                                        <option value="2" >Vendor Code</option>
+													
+			                        </select>
+								</div>
 							</td>
-							<td>
+							<td style="margin-right:100px">
 								<input type="text"  value="" id="inputString" class="form-control" placeholder="Search"
 										onkeyup="lookup(this.value);"  name="vendor" autocomplete="off" style="display: inline-block;" title="search" />
 								
@@ -256,23 +264,54 @@ background-color:#b0ded7 ;
 										</div>
 										</div>
 							</td>
-							</tr>
-							</table>
+							<td>
+										<h6  id="selectoption" style="color: black"	>*Select option</h6>
+										
+									</td>-->
+									<td>
+									 <div>
+            <div class="col-xs-8">
+                <div id="searchForm" class="input-group">
+                    
+                    <div class="input-group-btn search-panel">
+                        <select name="Search_id" id="Search_id" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="border: 1px solid #ced4da" onchange="myFunction()">
+                            <option value="select_op">All</option>
+                            <option value="1">Username</option>
+                            <option value="2">code</option>
+                        </select>
+                    </div>
+                    
+                    <input type="text"  value="" id="inputString" class="form-control" placeholder="Search"
+										onkeyup="lookup(this.value);"  name="vendor" autocomplete="off" style="display: inline-block;" title="search" />
+								
+						<h6  id="selectoption" style="color: black"	>*Select option</h6>				
+						
+                    </div>
+                    <div class="suggestionsBox" id="suggestions" style="display: none;"  style="margin-left:17.5% ;width:83%">
+										<div class="suggestionList" id="autoSuggestionsList" >
+										</div>
+										</div><!-- end form -->     
+            </div><!-- end col-xs-8 -->        
+    </div><!-- end container -->    
+					
+	
+									</td>
+							<td >
+								<div align="right">
+									
+										<div class="btn-group" style="Border-radius:2px">
+											 <button class="btn btn-primary" name="new_clicked" title="new" style="border-radius: 50%"><i class="icon-plus" style="color: white;" title="New" ></i></button>
+											<button class="btn btn-primary" type="submit" name="edit_clicked" title="edit" value="View" id="Edit_button" style="border-radius: 50%"><i class="icon-pencil" style="color: white" ></i></button>
+											<button class="btn btn-primary" type="submit" name="view_clicked" title="view" value="View" style="border-radius: 50%"><i class="icon-move" style="color: white"></i></button> 
+				            				<button class="btn btn-primary" type="submit"  name="delete_clicked" title="delete" value="Delete"  id="delete_button" style="border-radius: 50%"><i class="icon-trash" style="color: white;"></i></button> 
+											<button class="btn btn-primary" type="submit"  name="close_clicked"value="Close" title="close" style="border-radius: 50%"><i class="icon-remove-sign" style="color: white"></i></button>
+									   </div>
+									   
+								</div>
+							</td>
+						</tr>
+				</table>
     </div>
-</div>
-				
-				
-				<div class="row" style="padding-left: 400px; padding-bottom: 15px;float: right;">
-					<div>
-						<div class="btn-group" style="Border-radius:2px">
-							 <button class="btn btn-primary" name="new_clicked" title="new" style="border-radius: 50%"><i class="icon-plus" style="color: white;" title="New" ></i></button>
-							<button class="btn btn-primary" type="submit" name="edit_clicked" title="edit" value="View" id="Edit_button" style="border-radius: 50%"><i class="icon-pencil" style="color: white" ></i></button>
-							<button class="btn btn-primary" type="submit" name="view_clicked" title="view" value="View" style="border-radius: 50%"><i class="icon-move" style="color: white"></i></button> 
-            				<button class="btn btn-primary" type="submit"  name="delete_clicked" title="delete" value="Delete"  id="delete_button" style="border-radius: 50%"><i class="icon-trash" style="color: white;"></i></button> 
-							<button class="btn btn-primary" type="submit"  name="close_clicked"value="Close" title="close" style="border-radius: 50%"><i class="icon-remove-sign" style="color: white"></i></button>
-					   </div>
-					   </div>
-				</div>
 			</div>
 				
 				<div id="Display_id1">
@@ -371,7 +410,7 @@ background-color:#b0ded7 ;
     <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript">
 function lookup(inputString) {
-	debugger
+	//debugger
 	
 	var selected = document.getElementById('Search_id');
 	var data_id=selected.options[selected.selectedIndex].value;
@@ -434,14 +473,14 @@ function lookup(inputString) {
 	}
 }
 function fill(thisValue) {
-	debugger
+	//debugger
 	$('#inputString').val(thisValue);
 	setTimeout("$('#suggestions').hide();",200);
 	if(thisValue!=null)
 	{Search_name(thisValue);}
 }
 function Search_name(inputString) {
-	debugger
+	//debugger
 	//$('#inputString').hide();
 	$('#Display_id1').hide();
 	$('#Display_id2').show();
@@ -457,7 +496,7 @@ function Search_name(inputString) {
 		data:{'name':value},
 		success:function(data)
 		{
-			debugger
+			//debugger
 			var count=data.length;
 			 $("#dynamictable1").show();
 	         $("#dynamictable1").innerHTML='';
@@ -498,11 +537,13 @@ function select_option(options)
 		}
 }
 function display_vendor(){
+	//debugger
 	$('#Display_id1').show();
 	$('#Display_id2').hide();
 	$('#Display_id3').hide();
 	$('#inputString').show();
 	$('#selectoption').hide();
+	$("div.select_drop_down select").val("select_op");
 	document.getElementById("inputString").value='';
 }
 </script>
@@ -558,7 +599,7 @@ function display_vendor(){
     			dataType:"json",
     			success:function(data)
     			{
-    				debugger;
+    				//debugger;
     				//alert(data);
     				if(data[0].Result=="True") {
     					
@@ -573,6 +614,11 @@ function display_vendor(){
     			}
     	  });
       }
+
+  	function myFunction(){
+  		$('#selectoption').hide();	
+  	}
+  	
     </script>
     <script src="js/app.js" type="text/javascript"></script>
     <script src="js/table-managed.js" type="text/javascript"></script>
@@ -595,7 +641,7 @@ function display_vendor(){
 			dataType:"json",
 			success:function(data)
 			{
-				debugger;
+				//debugger;
 				//alert(data);
 				if(data[0].Result_delete=="True") {
 					
@@ -621,8 +667,7 @@ function display_vendor(){
 			}
 	  });
 	});
-	
-	  </script>
+      </script>
     <!-- //dropdown nav -->
 
     <!-- Js for bootstrap working-->
