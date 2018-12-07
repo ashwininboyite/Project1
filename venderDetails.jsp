@@ -106,26 +106,25 @@ background-color:#b0ded7 ;
 </head>
 
 <body>
-    <div class="se-pre-con"></div>
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h1>
-                    <a href="index.html" style="font-family: monospace">ERP</a>
+                <h1 >
+                    <a href="index.jsp" style="font-family: monospace;"><div style="display: inline;"><img alt="" src="images/logo.png" style="width:38%;"></div>&nbspERP</a>
                 </h1>
-                <span style="font-family: monospace">ERP</span>
+                <span style="font-family: monospace"><div><img alt="" src="images/logo.png" style="width: 100%;padding-top: 4%;padding-right: 7%;padding-left: 2%"></div>ERP</span>
             </div>
 			
-            <!--<div class="profile-bg"></div>-->
+            
             <ul class="list-unstyled components mylist">
-                <li class="active">
+            	<li class="active">
                     <a href="index.html">
                         <i class="icon-dashboard"></i>
                         Dashboard
                     </a>
                 </li>
-                <li>
+                <li>	
                     <a href="charts.html">
                         <i class="fas fa-chart-pie"></i>
                         Sales
@@ -142,14 +141,14 @@ background-color:#b0ded7 ;
                             <a href="Vendordetails.jsp">Vendor</a>
                         </li>
                         <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <a href="rm_master.jsp" data-toggle="collapse" aria-expanded="false">
                         
                         Raw Material
                         <i class="fas fa-angle-down fa-pull-right"></i>
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="rm_master.jsp">Raw Material Master</a>
+                            <a href="rawmaterialdetails.jsp">Raw Material Master</a>
                         </li>
                         <li>
                             <a href="rm">Raw Material Details</a>
@@ -164,7 +163,7 @@ background-color:#b0ded7 ;
                         Reports
                     </a>
                 </li>
-                          </ul>
+            </ul>
         </nav>
 
         <!-- Page Content Holder -->
@@ -219,11 +218,6 @@ background-color:#b0ded7 ;
             <div>
             <div class="row">
                     <div class="col-md-12">
-                        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-						
-                       
-						<div>	
-      					</div>
                         <ul class="page-breadcrumb breadcrumb">
                             <li>
 								<span  style="color: white"><i class="icon-home" style="color: black"></i></span><a href="index.html">Home </a><i class="icon-angle-right"  style="color: black">
@@ -243,34 +237,10 @@ background-color:#b0ded7 ;
                
 					<form name=myname method=post action="update.jsp">
 					<div>
-							<table style="width: 100%" border="0">
+							<table style="width: 100%" >
 							<tr>
-						<!-- 	<td>
-								<div id="select_drop_down">
-										<select name="Search_id" id="Search_id" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Select Category" >
-			                            <option value="select_op">Select Category </option>
-													 <option value="1">Vendor Name</option>
-			                                        <option value="2" >Vendor Code</option>
-													
-			                        </select>
-								</div>
-							</td>
-							<td style="margin-right:100px">
-								<input type="text"  value="" id="inputString" class="form-control" placeholder="Search"
-										onkeyup="lookup(this.value);"  name="vendor" autocomplete="off" style="display: inline-block;" title="search" />
-								
-										<div class="suggestionsBox" id="suggestions" style="display: none;" >
-										<div class="suggestionList" id="autoSuggestionsList" >
-										</div>
-										</div>
-							</td>
-							<td>
-										<h6  id="selectoption" style="color: black"	>*Select option</h6>
-										
-									</td>-->
 									<td>
-									 <div>
-            <div class="col-xs-8">
+            <div class="col-md-12">
                 <div id="searchForm" class="input-group">
                     
                     <div class="input-group-btn search-panel">
@@ -291,30 +261,27 @@ background-color:#b0ded7 ;
 										<div class="suggestionList" id="autoSuggestionsList" >
 										</div>
 										</div><!-- end form -->     
-            </div><!-- end col-xs-8 -->        
-    </div><!-- end container -->    
-					
-	
-									</td>
-							<td >
+            </div><!-- end col-xs-8 -->            
+						</td>
+							<td>
 								<div align="right">
 									
 										<div class="btn-group" style="Border-radius:2px">
 											 <button class="btn btn-primary" name="new_clicked" title="new" style="border-radius: 50%"><i class="icon-plus" style="color: white;" title="New" ></i></button>
 											<button class="btn btn-primary" type="submit" name="edit_clicked" title="edit" value="View" id="Edit_button" style="border-radius: 50%"><i class="icon-pencil" style="color: white" ></i></button>
 											<button class="btn btn-primary" type="submit" name="view_clicked" title="view" value="View" style="border-radius: 50%"><i class="icon-move" style="color: white"></i></button> 
-				            				<button class="btn btn-primary" type="submit"  name="delete_clicked" title="delete" value="Delete"  id="delete_button" style="border-radius: 50%"><i class="icon-trash" style="color: white;"></i></button> 
+				            				<button  class="btn btn-primary" type="submit"  name="delete_clicked" title="delete" value="Delete"  id="delete_button" style="border-radius: 50%"><i class="icon-trash" style="color: white;"></i></button> 
 											<button class="btn btn-primary" type="submit"  name="close_clicked"value="Close" title="close" style="border-radius: 50%"><i class="icon-remove-sign" style="color: white"></i></button>
 									   </div>
 									   
 								</div>
 							</td>
 						</tr>
-				</table>
-    </div>
-			</div>
+					</table>
+    			</div>
+			
 				
-				<div id="Display_id1">
+				<div id="Display_id1" class="col-md-12">
 				<%
 				
 						String id = request.getParameter("userId");
@@ -400,15 +367,12 @@ background-color:#b0ded7 ;
 									</td>
 								</tr>
 							</table>
-							
 						</div>
-						</form>            
-        </div>
-    </div>
-
-
-    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript">
+					</form>            
+				</div>
+			</div>
+		</div>
+<script>
 function lookup(inputString) {
 	//debugger
 	
@@ -443,6 +407,7 @@ function lookup(inputString) {
 			}
 	else if(data_id=="2")
 	{
+		debugger
 		$('#selectoption').hide();
 		if(inputString.length == 0) {
 			$('#suggestions').hide();
@@ -509,7 +474,8 @@ function Search_name(inputString) {
              {
                      for(var i=0;i<count;i++)
                          {
-                      var table="<tr><td><input type='checkbox' name='check"+i+"'"+ "value='"+data[i].Vendorcode+"'>"+
+                    	debugger
+                      var table="<tr><td><input type='checkbox' name='check"+i+"'"+' '+ "value='"+data[i].Vendorcode+"'>"+
                       			"<td align='left' valign='middle'>" +data[i].Vendorcode+
                                 "</td><td align='left' valign='middle'>"+data[i].Name+"</td></tr>";
                                	$("#sample_2").append(table); 
@@ -537,7 +503,7 @@ function select_option(options)
 		}
 }
 function display_vendor(){
-	//debugger
+	debugger
 	$('#Display_id1').show();
 	$('#Display_id2').hide();
 	$('#Display_id3').hide();
@@ -661,9 +627,7 @@ function display_vendor(){
 					else{
 						//alert("hi");
 						$('#Edit_button').hide();
-						
 					}
-
 			}
 	  });
 	});
